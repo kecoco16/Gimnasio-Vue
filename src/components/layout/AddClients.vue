@@ -1,0 +1,166 @@
+<template lang="pug">
+  main
+    .box-form
+      form(@submit.prevent='validateBeforeSubmit')
+        .form-group
+          i.fa.fa-user
+          label.control-label &nbsp Nombre 
+          input.form-control(name='nombre', v-model='nombre', v-validate="'required|alpha_spaces'", type='text', placeholder='nombre')
+          i.fa.fa-warning(v-show="errors.has('nombre')")
+          span.text-danger(v-show="errors.has('nombre')") {{ errors.first('nombre') }}
+        .form-group
+          i.fa.fa-id-card-o
+          label.control-label &nbsp Cedula
+          input.form-control(name='cedula', v-model='cedula', v-validate="'required|min:9|numeric'", type='text', placeholder='cedula')
+          i.fa.fa-warning(v-show="errors.has('cedula')")
+          span.text-danger(v-show="errors.has('cedula')") {{ errors.first('cedula') }}
+        .form-group
+          i.fa.fa-phone
+          label.control-label &nbsp Telefono
+          input.form-control(name='telefono', v-model='telefono', v-validate="'required|min:8|numeric'", type='text', placeholder='telefono')
+          i.fa.fa-warning(v-show="errors.has('telefono')")
+          span.text-danger(v-show="errors.has('telefono')") {{ errors.first('telefono') }}
+        .form-group
+          i.fa.fa-money
+          Label.control-label &nbsp Mensualidad
+          select.form-control(name='mensualidad', v-validate.initial="'required'", v-model='MenSelect')
+            option(value="")
+            option(v-for='m in mensualidades', :value='m.id_mensualidad') {{m.tipo}} ₡{{m.mensualidad}}
+        .form-group
+          i.fa.fa-envelope-o
+          label.control-label &nbsp Correo
+          input.form-control(name='correo', v-model='correo', v-validate="'required|email'", type='text', placeholder='correo')
+          i.fa.fa-warning(v-show="errors.has('correo')")
+          span.text-danger(v-show="errors.has('correo')") {{ errors.first('correo') }}
+        .form-group
+          i.fa.fa-transgender
+          label.control-label(:class="{ 'error': errors.has('sexo') }")  &nbsp Sexo &nbsp
+          i.fa.fa-warning(v-show="errors.has('sexo')")
+          span.text-danger(v-show="errors.has('sexo')") {{ errors.first('sexo') }}
+          br
+          label.radio-inline
+            input(name='sexo', v-validate="'required|in:h,m'",v-model='sexo', value='h', type='radio')
+            i.fa.fa-male
+            |&nbsp Masculino
+          label.radio-inline
+            input(name='sexo', value='m', type='radio', v-model='sexo')
+            i.fa.fa-female
+            |&nbsp Femenino
+        .form-group
+          input(name='imagen', type='file', @change='onFileChange', v-validate="'image'")
+          img.animated.fadeIn(:src='image', v-show='image')
+        button.btn.btn-primary.btn-block(type='submit', @click='newClient') Agregar 
+</template>
+
+<script>
+import mensualidad from '@/services/mensualidades'
+import AddClient from '@/services/AddClient'
+
+function editarFecha (fecha, intervalo, dma) {
+  var arrayFecha = fecha.split('-')
+  var dia = arrayFecha[2]
+  var mes = arrayFecha[1]
+  var anio = arrayFecha[0]
+  var fechaInicial = new Date(anio, mes - 1, dia)
+  var fechaFinal = fechaInicial
+  fechaFinal.setMonth(fechaInicial.getMonth() + parseInt(intervalo))
+  dia = fechaFinal.getDate()
+  mes = fechaFinal.getMonth() + 1
+  anio = fechaFinal.getFullYear()
+  dia = (dia.toString().length === 1) ? '0' + dia.toString() : dia
+  mes = (mes.toString().length === 1) ? '0' + mes.toString() : mes
+  return anio + '-' + mes + '-' + dia
+}
+export default {
+  name: 'app',
+
+  data () {
+    return {
+      correo: '',
+      nombre: '',
+      cedula: '',
+      telefono: '',
+      sexo: '',
+      image: '',
+      MenSelect: '',
+      mensualidades: [],
+      send: false
+    }
+  },
+  created () {
+    mensualidad.search()
+      .then(res => {
+        this.mensualidades = res
+      })
+  },
+  methods: {
+    validateBeforeSubmit () {
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          swal({
+            type: 'error',
+            html: $('<div>')
+              .addClass('.animated.fadeIn')
+              .text('Error! Faltan o hay datos incorrectos'),
+            animation: false,
+            customClass: 'animated tada',
+            timer: 1900,
+            showConfirmButton: false
+          }).then(
+            function () {},
+            function () {}
+          )
+        }
+      })
+    },
+    onFileChange (e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) {
+        return
+      }
+      this.createImage(files[0])
+    },
+    createImage (file) {
+      var reader = new FileReader()
+      var vm = this
+
+      reader.onload = (e) => {
+        vm.image = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    newClient: function () {
+      const hoy = new Date().toJSON().slice(0, 10)
+      const pago = editarFecha(hoy, '+1', 'm')
+      let _self = this
+      if (this.nombre && this.cedula && this.telefono && this.MenSelect && this.correo && this.sexo) {
+        AddClient.search(this.nombre, this.cedula, this.telefono, this.MenSelect, this.correo, this.sexo, this.image, hoy, pago)
+          .then(res => {
+            swal({
+              title: 'Agregado con exito!',
+              timer: 1200,
+              showConfirmButton: false,
+              type: 'success'
+            }).then(
+              function () {},
+              function (dismiss) {
+                if (dismiss === 'timer') {
+                  _self.$router.push('/home')
+                }
+              }
+            )
+          }).catch(err => err)
+      }
+    }
+  }
+}
+</script>
+<style lang='scss' scoped>
+img{
+  width: 50%;
+  margin: auto;
+  display: block;
+  margin-top: 20px;
+  border-radius:5%;
+}
+</style>
