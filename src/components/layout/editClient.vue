@@ -32,8 +32,8 @@
 <script>
 import mensualidad from '@/services/mensualidades'
 import updateClient from '@/services/updateClient'
-export default {
 
+export default {
   data () {
     return {
       nombre: this.$store.state.clientSelect.nombre,
