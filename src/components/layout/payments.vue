@@ -22,6 +22,7 @@ export default {
   created () {
     this.$store.commit('pillActive', 'disable')
     this.$store.commit('disableModal')
+    this.$store.commit('paymentsSelect', [])
   }
 }
 </script>

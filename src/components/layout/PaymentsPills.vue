@@ -42,7 +42,7 @@
         disableAll()
         pill1.classList.add('active')
         this.$store.commit('pillActive', 'pill1')
-        this.$store.commit('cleanPaymentList')
+        this.$store.commit('paymentsSelect', [])
         this.$store.commit('switchIsLoading')
         TodayPayments.search()
           .then(res => {
@@ -54,7 +54,7 @@
         const pill2 = document.getElementById('pill2')
         disableAll()
         pill2.classList.add('active')
-        this.$store.commit('cleanPaymentList')
+        this.$store.commit('paymentsSelect', [])
         this.$store.commit('pillActive', 'pill2')
         this.$store.commit('switchModal')
       },
@@ -64,7 +64,7 @@
         disableAll()
         pill3.classList.add('active')
         this.$store.commit('switchIsLoading')
-        this.$store.commit('cleanPaymentList')
+        this.$store.commit('paymentsSelect', [])
         this.$store.commit('pillActive', 'pill3')
         AllPayments.search()
           .then(res => {

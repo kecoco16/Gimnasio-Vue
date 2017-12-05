@@ -38,9 +38,6 @@ const store = new Vuex.Store({
     paymentsSelect (state, list) {
       state.paymentsList = list
     },
-    cleanPaymentList (state) {
-      state.paymentsList = []
-    },
     switchModal (state) {
       state.modal = !state.modal
       state.clientSelect = {}
