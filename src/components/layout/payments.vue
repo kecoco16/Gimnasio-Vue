@@ -20,7 +20,8 @@ export default {
   name: 'payments',
   components: {GymAddPills, GymPaymentList, GymFooter, GymHeader, GymLoader},
   created () {
-    this.$store.commit('cleanPaymentList')
+    this.$store.commit('pillActive', 'disable')
+    this.$store.commit('disableModal')
   }
 }
 </script>

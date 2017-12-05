@@ -22,7 +22,7 @@ export default {
   name: 'add',
   components: {GymAddPills, GymFooter, GymHeader, GymAddClients, GymAddMensualidad, GymAddUsers},
   created () {
-    this.$store.commit('disablePills')
+    this.$store.commit('pillActive', 'disable')
   }
 }
 </script> 

@@ -30,21 +30,21 @@
         if (pill1.classList.value === 'active') { return }
         disableAll()
         pill1.classList.add('active')
-        this.$store.commit('pill1Active')
+        this.$store.commit('pillActive', 'pill1')
       },
       pill2 () {
         const pill2 = document.getElementById('pill2')
         if (pill2.classList.value === 'active') { return }
         disableAll()
         pill2.classList.add('active')
-        this.$store.commit('pill2Active')
+        this.$store.commit('pillActive', 'pill2')
       },
       pill3 () {
         const pill3 = document.getElementById('pill3')
         if (pill3.classList.value === 'active') { return }
         disableAll()
         pill3.classList.add('active')
-        this.$store.commit('pill3Active')
+        this.$store.commit('pillActive', 'pill3')
       }
     }
 }

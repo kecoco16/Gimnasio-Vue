@@ -30,25 +30,10 @@ const store = new Vuex.Store({
     switchPayments (state) {
       state.profileModal = !state.profileModal
     },
-    pill1Active (state) {
-      state.pill1 = true
-      state.pill2 = false
-      state.pill3 = false
-    },
-    pill2Active (state) {
-      state.pill1 = false
-      state.pill2 = true
-      state.pill3 = false
-    },
-    pill3Active (state) {
-      state.pill1 = false
-      state.pill2 = false
-      state.pill3 = true
-    },
-    disablePills (state) {
-      state.pill1 = false
-      state.pill2 = false
-      state.pill3 = false
+    pillActive (state, currentActive) {
+      state.pill1 = (currentActive === 'pill1')
+      state.pill2 = (currentActive === 'pill2')
+      state.pill3 = (currentActive === 'pill3')
     },
     paymentsSelect (state, list) {
       state.paymentsList = list
@@ -58,6 +43,10 @@ const store = new Vuex.Store({
     },
     switchModal (state) {
       state.modal = !state.modal
+      state.clientSelect = {}
+    },
+    disableModal (state) {
+      state.modal = false
       state.clientSelect = {}
     },
     switchIsLoading (state) {

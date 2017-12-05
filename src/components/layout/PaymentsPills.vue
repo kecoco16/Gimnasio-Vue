@@ -41,7 +41,7 @@
         if (pill1.classList.value === 'active') { return }
         disableAll()
         pill1.classList.add('active')
-        this.$store.commit('pill1Active')
+        this.$store.commit('pillActive', 'pill1')
         this.$store.commit('cleanPaymentList')
         this.$store.commit('switchIsLoading')
         TodayPayments.search()
@@ -55,7 +55,7 @@
         disableAll()
         pill2.classList.add('active')
         this.$store.commit('cleanPaymentList')
-        this.$store.commit('pill2Active')
+        this.$store.commit('pillActive', 'pill2')
         this.$store.commit('switchModal')
       },
       pill3 () {
@@ -65,7 +65,7 @@
         pill3.classList.add('active')
         this.$store.commit('switchIsLoading')
         this.$store.commit('cleanPaymentList')
-        this.$store.commit('pill3Active')
+        this.$store.commit('pillActive', 'pill3')
         AllPayments.search()
           .then(res => {
             this.$store.commit('paymentsSelect', res.reverse())
