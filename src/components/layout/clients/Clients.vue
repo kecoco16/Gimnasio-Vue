@@ -1,5 +1,6 @@
 <template lang="pug">
   main
+    gym-nav-bar
     nav.navbar-inverse.navbar-fixed-top.animated.fadeIn
       .row.container-fluid
         .col-xs-3.col-sm-4.col-md-5
@@ -14,6 +15,7 @@
             i.fa.fa-search.fa-lg
     .box-principal
       .animated.bounceInDown
+        gym-add-pills
         h1.text-center
           | Listado de Clientes
         ul.nav.nav-pills
@@ -29,6 +31,7 @@
         small.text-left.col-xs-6.col-sm-6.col-md-6 {{searchMessage}} 
         a.text-right.col-xs-6.col-sm-6.col-md-6(title='Generar PDF')
           i.fa.fa-file-pdf-o
+      gym-client-card    
       .card-deck.animated.fadeIn(v-show='!isLoading')
         .card.col-md-3.col-xs-12.col-sm-6(v-for="c in clients")
           img.card-img-top.img-circle.center-block(:src='c.ruta_imagen', alt='Card image cap', @click='setClient(c)')
@@ -97,6 +100,9 @@ import GymLoader from '@/components/shared/Loader.vue'
 import GymFooter from '@/components/shared/Footer.vue'
 import ProfileModal from '@/components/shared/ModalProfile.vue'
 import mensualidad from '@/services/mensualidades'
+import GymAddPills from './ClientsPills.vue'
+import GymNavBar from './ClientNavBar.vue'
+import GymClientCard from './ClientCard.vue'
 
 const disableAll = () => {
   let li = document.getElementsByTagName('li')
@@ -124,7 +130,7 @@ const editarFecha = (fecha, intervalo, dma) => {
 export default {
   name: 'clients',
 
-  components: {GymLoader, GymFooter, ProfileModal},
+  components: {GymLoader, GymFooter, ProfileModal, GymAddPills, GymNavBar, GymClientCard},
 
   data () {
     return {
