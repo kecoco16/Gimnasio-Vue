@@ -1,14 +1,14 @@
 <template lang="pug">
   main
     h1.text-center
-      | {{info.title}}
+      | Listado de Clientes
     ul.nav.nav-pills
       li#pill1(@click='pill1')
-        a {{info.pill1}}
+        a Todos
       li#pill2(@click='pill2')
-        a {{info.pill2}}
+        a Hoy
       li#pill3(@click='pill3')
-        a {{info.pill3}}
+        a Atrasados
     hr.style-line
 </template>
 
@@ -21,9 +21,6 @@
   }
   export default {
     name: 'AddPills',
-    props: {
-      info: Object
-    },
     methods: {
       pill1 () {
         const pill1 = document.getElementById('pill1')

@@ -2,14 +2,14 @@
   main
     .container
       h1.text-center
-        | {{info.title}}
+        | Listado de Pagos
       ul.nav.nav-pills
         li#pill1(@click='pill1')
-          a {{info.pill1}}
+          a Hoy
         li#pill2(@click='pill2')
-          a {{info.pill2}}
+          a Filtrar
         li#pill3(@click='pill3')
-          a {{info.pill3}}
+          a Todos
       hr.style-line
     .modal-mask(v-if='this.$store.state.modal')
       .modal-wrapper.animated.bounceIn
@@ -20,7 +20,7 @@
 <script>
   import AllPayments from '@/services/allPayments'
   import TodayPayments from '@/services/todayPayments'
-  import GymFilterModal from '@/components/layout/PaymentsModalDateFilter.vue'
+  import GymFilterModal from './PaymentsModalDateFilter.vue'
 
   const disableAll = () => {
     const li = document.getElementsByTagName('li')
@@ -32,9 +32,6 @@
   export default {
     name: 'AddPills',
     components: {GymFilterModal},
-    props: {
-      info: Object
-    },
     methods: {
       pill1 () {
         const pill1 = document.getElementById('pill1')

@@ -2,7 +2,7 @@
   main
     gym-header
     .box-principal.animated.bounceInDown
-      gym-add-pills(:info = {title: 'Agregar', pill1: 'Cliente', pill2: 'Mensualidad', pill3: 'Usuario'})
+      gym-add-pills
     .box-form
       gym-add-clients.animated.fadeIn(v-show='this.$store.state.pill1')
       gym-add-mensualidad.animated.fadeIn(v-show='this.$store.state.pill2')
@@ -13,10 +13,10 @@
 <script>
 import GymFooter from '@/components/shared/Footer.vue'
 import GymHeader from '@/components/shared/Header.vue'
-import GymAddPills from '@/components/layout/AddPills.vue'
-import GymAddClients from '@/components/layout/AddClients.vue'
-import GymAddMensualidad from '@/components/layout/AddMensualidad.vue'
-import GymAddUsers from '@/components/layout/AddUsers.vue'
+import GymAddPills from './AddPills.vue'
+import GymAddClients from './AddClients.vue'
+import GymAddMensualidad from './AddMensualidad.vue'
+import GymAddUsers from './AddUsers.vue'
 
 export default {
   name: 'add',

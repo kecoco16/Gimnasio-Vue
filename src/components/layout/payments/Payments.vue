@@ -3,18 +3,18 @@
     gym-header.animated.fadeIn
     .box-principal
       .animated.bounceInDown
-        gym-add-pills(:info = {title: 'Listado de Pagos', pill1: 'Hoy', pill2: 'Filtrar', pill3: 'Todos'})
+        gym-add-pills
       gym-loader(v-show='this.$store.state.isLoading')
       gym-payment-list
     gym-footer
 </template>
 
 <script>
-import GymAddPills from '@/components/layout/PaymentsPills.vue'
+import GymAddPills from './PaymentsPills.vue'
+import GymPaymentList from './PaymentList.vue'
 import GymFooter from '@/components/shared/Footer.vue'
 import GymHeader from '@/components/shared/Header.vue'
 import GymLoader from '@/components/shared/Loader.vue'
-import GymPaymentList from '@/components/layout/PaymentList.vue'
 
 export default {
   name: 'payments',

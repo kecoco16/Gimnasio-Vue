@@ -95,7 +95,7 @@ import updateClient from '@/services/updateClient'
 import payClients from '@/services/pay'
 import GymLoader from '@/components/shared/Loader.vue'
 import GymFooter from '@/components/shared/Footer.vue'
-import ProfileModal from './profile.vue'
+import ProfileModal from '@/components/shared/ModalProfile.vue'
 import mensualidad from '@/services/mensualidades'
 
 const disableAll = () => {

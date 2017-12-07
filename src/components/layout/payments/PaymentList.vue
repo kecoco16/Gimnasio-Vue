@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import ProfileModal from '@/components/layout/profile.vue'
+import ProfileModal from '@/components/shared/ModalProfile.vue'
 import SearchById from '@/services/ClientById'
 
 export default {
