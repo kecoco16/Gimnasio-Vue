@@ -1,8 +1,8 @@
-import Clientes from './components/layout/Clients.vue'
+import Clientes from './components/layout/clients/Clients.vue'
 import Home from './components/layout/Home.vue'
-import Add from './components/layout/Add.vue'
+import Add from './components/layout/add/Add.vue'
 import Login from './components/layout/login.vue'
-import Payments from './components/layout/payments.vue'
+import Payments from './components/layout/payments/Payments.vue'
 
 const routes = [
   {path: '/clients', component: Clientes, name: 'clients'},

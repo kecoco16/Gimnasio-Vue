@@ -41,23 +41,17 @@
             p.list-group-item
               strong.text-success Mensualidad: 
               | {{c.mensualidad}}
-            p.list-group-item
-              strong.text-success Telefono: 
-              | {{c.telefono}}
-            p.list-group-item
-              strong.text-success Correo: 
-              | {{c.correo}}
             .options.text-center
-              a(title='Realizar pago', @click='pago')
-                i.fa.fa-credit-card-alt.fa-2x(@click='id = c.id_clientes; fecha = c.fecha_pago; nombre = c.nombre; mensualidad = c.mensualidad;')
+              a(title='Realizar pago', @click='pago(c)')
+                i.fa.fa-credit-card-alt.fa-2x
               a(title='Editar', @click='showModal = true')
                 i.fa.fa-pencil.fa-2x(style='padding-left:10px;', @click='id = c.id_clientes; cedula = c.cedula; nombre = c.nombre; telefono = c.telefono; correo = c.correo;')
-              a(title='Eliminar', @click='eliminar')
-                i.fa.fa-trash.fa-2x(style='padding-left:10px;',@click='id = c.id_clientes')
+              a(title='Eliminar', @click='eliminar(c)')
+                i.fa.fa-trash.fa-2x(style='padding-left:10px;')
     .modal-mask(v-if='Profile')
       .modal-wrapper.animated.bounceIn
         .modal-container
-          profile-modal(:clientes='cliente')
+          profile-modal
     .modal-mask(name='modal', v-if='showModal')
       .modal-wrapper.animated.bounceIn
         .modal-container
@@ -87,7 +81,7 @@
                 input(name='imagen', type='file', @change='onFileChange', v-validate="'image'")
                 img.animated.fadeIn(:src='image', v-show='image')
               button#derecha.btn.btn-primary.col-xs-offset-2.col-xs-4.col-sm-4.col-md-4(type='submit', @click='editar') Editar 
-            button#izquierda.btn.btn-default.col-xs-4.col-sm-4.col-md-4(@click='showModal = false; MenSelect = "";') Cancelar  
+            button#izquierda.btn.btn-default.col-xs-4.col-sm-4.col-md-4(@click='showModal = false; MenSelect = ""; image = "";') Cancelar  
     gym-footer(v-show='!isLoading')
 </template>
 
@@ -101,17 +95,17 @@ import updateClient from '@/services/updateClient'
 import payClients from '@/services/pay'
 import GymLoader from '@/components/shared/Loader.vue'
 import GymFooter from '@/components/shared/Footer.vue'
-import ProfileModal from './profile.vue'
+import ProfileModal from '@/components/shared/ModalProfile.vue'
 import mensualidad from '@/services/mensualidades'
 
-function disableAll () {
+const disableAll = () => {
   let li = document.getElementsByTagName('li')
   li[0].classList.remove('active')
   li[1].classList.remove('active')
   li[2].classList.remove('active')
 }
 
-function editarFecha (fecha, intervalo, dma) {
+const editarFecha = (fecha, intervalo, dma) => {
   var arrayFecha = fecha.split('-')
   var dia = arrayFecha[2]
   var mes = arrayFecha[1]
@@ -149,9 +143,8 @@ export default {
       MenSelect: '',
       image: '',
       cedula: '',
-      cliente: {},
-      showprofile: false,
-      prueba: ''
+      prueba: '',
+      SelectClient: {}
     }
   },
   computed: {
@@ -170,12 +163,14 @@ export default {
   },
   methods: {
     setClient (c) {
-      this.cliente = c
-      this.showprofile = true
-      this.hide()
+      this.switch()
+      this.clientSelect(c)
     },
-    hide () {
-      this.$store.commit('hide')
+    switch () {
+      this.$store.commit('switchProfile')
+    },
+    clientSelect (cliente) {
+      this.$store.commit('clientSelect', cliente)
     },
     search () {
       disableAll()
@@ -250,7 +245,7 @@ export default {
       this.clients = []
       this.load = false
     },
-    eliminar () {
+    eliminar (c) {
       let self = this
       swal({
         title: '¿Esta seguro(a)?',
@@ -262,7 +257,7 @@ export default {
         cancelButtonText: 'Cancelar',
         allowOutsideClick: false
       }).then(function () {
-        deleteClients.search(self.id)
+        deleteClients.search(c.id_clientes)
           .then(res => {
             swal({
               title: 'Eliminado con exito!',
@@ -282,8 +277,9 @@ export default {
       },
       function (dismiss) {})
     },
-    pago () {
-      let newDate = editarFecha(this.fecha, '+1', 'm')
+    pago (c) {
+      let newDate = editarFecha(c.fecha_pago, '+1', 'm')
+      const hoy = new Date().toJSON().slice(0, 10)
       let self = this
       swal({
         title: '¿Esta seguro(a)?',
@@ -295,7 +291,7 @@ export default {
         cancelButtonText: 'Cancelar',
         allowOutsideClick: false
       }).then(function () {
-        payClients.search(self.id, newDate)
+        payClients.search(c.id_clientes, newDate, hoy, c.mensualidad, c.nombre)
           .then(res => {
             swal({
               title: 'Pago realizado con exito!',
@@ -321,6 +317,7 @@ export default {
         updateClient.search(this.id, this.nombre, this.cedula, this.telefono, this.correo, this.MenSelect, this.image)
           .then(res => {
             self.showModal = false
+            disableAll()
             swal({
               title: 'Editado con exito!',
               timer: 1200,
@@ -331,6 +328,8 @@ export default {
               function (dismiss) {
                 if (dismiss === 'timer') {
                   self.clients = []
+                  self.image = ''
+                  self.MenSelect = ''
                   disableAll()
                 }
               }
@@ -377,31 +376,6 @@ export default {
 }
 </script>
 <style lang="scss">
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .5);
-  display: table;
-  transition: opacity .3s ease;
-}
-
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.modal-container {
-  width: 350px;
-  height: auto;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 6px;
-}
 img{
   width: 40%;
   margin: auto;
@@ -414,5 +388,17 @@ img{
 }
 #izquierda{
   margin-left:4px;
+}
+
+@media screen and (max-device-width : 480px) {
+  .modal-container{
+    width: auto;
+    margin:15px !important;
+    height: 0px auto;
+    margin: 0px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 6px;
+  }
 }
 </style>
