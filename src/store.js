@@ -7,6 +7,7 @@ const store = new Vuex.Store({
   state: {
     profileModal: false,
     editProfileModal: false,
+    clientsList: [],
     clientSelect: {},
     pill1: false,
     pill2: false,
@@ -24,6 +25,9 @@ const store = new Vuex.Store({
       state.editProfileModal = !state.editProfileModal
       state.clientSelect = {}
     },
+    clientsList (state, clients) {
+      state.clientsList = clients
+    },
     clientSelect (state, client) {
       state.clientSelect = client
     },
@@ -31,9 +35,9 @@ const store = new Vuex.Store({
       state.profileModal = !state.profileModal
     },
     pillActive (state, currentActive) {
-      state.pill1 = (currentActive === 'pill1')
-      state.pill2 = (currentActive === 'pill2')
-      state.pill3 = (currentActive === 'pill3')
+      state.pill1 = currentActive === 'pill1'
+      state.pill2 = currentActive === 'pill2'
+      state.pill3 = currentActive === 'pill3'
     },
     paymentsSelect (state, list) {
       state.paymentsList = list

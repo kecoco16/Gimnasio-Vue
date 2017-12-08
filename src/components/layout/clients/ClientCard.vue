@@ -1,16 +1,16 @@
 <template lang="pug">
   .card-deck
-    .card.col-md-3.col-xs-12.col-sm-6
+    .card.col-md-3.col-xs-12.col-sm-6(v-for="c in clients")
       .card-block
-        img.card-img-top.img-circle.center-block(src='../../../assets/logo.png', alt='Card image cap')
+        img.card-img-top.img-circle.center-block(:src='c.ruta_imagen', alt='Card image cap')
         h3.card-title.text-center
-          | test
+          | {{c.nombre}}
         p.list-group-item
           strong.text-success Fecha de pago: 
-          | 28/12/95
+          | {{c.fecha_pago | dateFormat}}
         p.list-group-item
           strong.text-success Mensualidad: 
-          | test
+          | {{c.mensualidad}}
         .options.text-center
           a(title='Realizar pago')
             i.fa.fa-credit-card-alt.fa-2x
@@ -20,10 +20,14 @@
             i.fa.fa-trash.fa-2x(style='padding-left:10px;')    
 </template>
 
-
 <script>
   export default {
-    name: 'ClientCard'
+    name: 'ClientCard',
+    computed: {
+      clients () {
+        return this.$store.state.clientsList
+      }
+    }
   }
 </script>
 
