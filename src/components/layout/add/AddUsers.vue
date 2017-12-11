@@ -28,24 +28,19 @@ export default {
     }
   },
   methods: {
-    validateBeforeSubmit () {
-      this.$validator.validateAll().then(result => {
-        if (!result) {
-          swal({
-            type: 'error',
-            html: $('<div>')
-              .addClass('.animated.fadeIn')
-              .text('Error! Faltan o hay datos incorrectos'),
-            animation: false,
-            customClass: 'animated tada',
-            timer: 1900,
-            showConfirmButton: false
-          }).then(
-            function () {},
-            function () {}
-          )
-        }
-      })
+    async validateBeforeSubmit () {
+      const validate = await this.$validator.validateAll()
+      if (!validate) {
+        swal({
+          type: 'error',
+          html: $('<div>')
+            .addClass('.animated.fadeIn')
+            .text('Error! Faltan o hay datos incorrectos'),
+          animation: false,
+          timer: 1500,
+          showConfirmButton: false
+        })
+      }
     }
   }
 }

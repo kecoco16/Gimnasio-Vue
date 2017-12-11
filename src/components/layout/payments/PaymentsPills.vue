@@ -4,11 +4,11 @@
       h1.text-center
         | Listado de Pagos
       ul.nav.nav-pills
-        li#pill1(@click='pill1')
+        li#pill1(@click='pill1', :class="pillsState[0]")
           a Hoy
-        li#pill2(@click='pill2')
+        li#pill2(@click='pill2', :class="pillsState[1]")
           a Filtrar
-        li#pill3(@click='pill3')
+        li#pill3(@click='pill3', :class="pillsState[2]")
           a Todos
       hr.style-line
     .modal-mask(v-if='this.$store.state.modal')
@@ -22,52 +22,39 @@
   import TodayPayments from '@/services/todayPayments'
   import GymFilterModal from './PaymentsModalDateFilter.vue'
 
-  const disableAll = () => {
-    const li = document.getElementsByTagName('li')
-    li[0].classList.remove('active')
-    li[1].classList.remove('active')
-    li[2].classList.remove('active')
-  }
-
   export default {
     name: 'AddPills',
     components: {GymFilterModal},
+    computed: {
+      pillsState () {
+        return this.$store.getters.pillsActive.map((state) => state ? 'active' : '')
+      }
+    },
     methods: {
-      pill1 () {
+      async pill1 () {
         const pill1 = document.getElementById('pill1')
         if (pill1.classList.value === 'active') { return }
-        disableAll()
-        pill1.classList.add('active')
         this.$store.commit('pillActive', 'pill1')
         this.$store.commit('paymentsSelect', [])
-        this.$store.commit('switchIsLoading')
-        TodayPayments.search()
-          .then(res => {
-            this.$store.commit('paymentsSelect', res.reverse())
-            this.$store.commit('switchIsLoading')
-          })
+        const payments = await TodayPayments.search()
+        if (payments) {
+          this.$store.commit('paymentsSelect', payments.reverse())
+        }
       },
       pill2 () {
-        const pill2 = document.getElementById('pill2')
-        disableAll()
-        pill2.classList.add('active')
         this.$store.commit('paymentsSelect', [])
         this.$store.commit('pillActive', 'pill2')
         this.$store.commit('switchModal')
       },
-      pill3 () {
+      async pill3 () {
         const pill3 = document.getElementById('pill3')
         if (pill3.classList.value === 'active') { return }
-        disableAll()
-        pill3.classList.add('active')
-        this.$store.commit('switchIsLoading')
         this.$store.commit('paymentsSelect', [])
         this.$store.commit('pillActive', 'pill3')
-        AllPayments.search()
-          .then(res => {
-            this.$store.commit('paymentsSelect', res.reverse())
-            this.$store.commit('switchIsLoading')
-          })
+        const payments = await AllPayments.search()
+        if (payments) {
+          this.$store.commit('paymentsSelect', payments.reverse())
+        }
       }
     }
 }

@@ -52,8 +52,6 @@ export default {
     total () {
       return `Encontrados ${this.$store.state.clientsList.length}`
     }
-  },
-  methods: {
   }
 }
 </script>

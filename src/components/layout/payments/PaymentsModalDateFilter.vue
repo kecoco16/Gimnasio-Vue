@@ -30,19 +30,17 @@ export default {
   },
   methods: {
     validateBeforeSubmit () {
-      this.$validator.validateAll().then(result => { })
+      this.$validator.validateAll()
     },
-    buscar () {
+    async buscar () {
       if (this.desde && this.hasta) {
         this.$store.commit('switchModal')
-        this.$store.commit('switchIsLoading')
-        PaymentsFilter.search(this.desde, this.hasta)
-          .then(res => {
-            this.$store.commit('switchIsLoading')
-            this.$store.commit('paymentsSelect', res.reverse())
-            this.desde = ''
-            this.hasta = ''
-          })
+        const payments = await PaymentsFilter.search(this.desde, this.hasta)
+        if (payments) {
+          this.$store.commit('paymentsSelect', payments.reverse())
+          this.desde = ''
+          this.hasta = ''
+        }
       }
     },
     closeModal () {
