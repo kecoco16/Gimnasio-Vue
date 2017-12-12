@@ -46,7 +46,7 @@
       pill2 () {
         this.$store.commit('paymentsSelect', [])
         this.$store.commit('pillActive', 'pill2')
-        this.$store.commit('switchModal')
+        this.$store.commit('modalState', true)
       },
       async pill3 () {
         const pill3 = document.getElementById('pill3')

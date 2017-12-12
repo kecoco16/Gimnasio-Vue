@@ -34,7 +34,7 @@ export default {
     },
     async buscar () {
       if (this.desde && this.hasta) {
-        this.$store.commit('switchModal')
+        this.$store.commit('modalState', false)
         this.$store.commit('isLoading', true)
         const payments = await PaymentsFilter.search(this.desde, this.hasta)
         if (payments) {
@@ -46,7 +46,7 @@ export default {
       }
     },
     closeModal () {
-      this.$store.commit('switchModal')
+      this.$store.commit('modalState', false)
     }
   }
 }

@@ -21,7 +21,7 @@ export default {
   components: {GymAddPills, GymPaymentList, GymFooter, GymHeader, GymLoader},
   created () {
     this.$store.commit('pillActive', 'disable')
-    this.$store.commit('disableModal')
+    this.$store.commit('modalState', false)
     this.$store.commit('paymentsSelect', [])
   }
 }
