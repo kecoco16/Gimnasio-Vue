@@ -5,9 +5,9 @@ const payClients = {}
 payClients.search = async (q, fechaPago, fecha, mensualidad, nombre) => {
   const pagos = await gimnasioService.post(`pago/${q}`, {
     'fecha_pago': fechaPago,
-    'fecha': fecha,
-    'mensualidad': mensualidad,
-    'nombre': nombre
+    fecha,
+    mensualidad,
+    nombre
   })
   if (pagos) {
     return pagos.data

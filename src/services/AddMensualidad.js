@@ -4,8 +4,8 @@ const AddMensualidad = {}
 
 AddMensualidad.search = async (nombre, mensualidad) => {
   const newMensualidad = await gimnasioService.post('newMensualidad', {
-    'nombre': nombre,
-    'mensualidad': mensualidad
+    nombre,
+    mensualidad
   })
   if (mensualidad) {
     return newMensualidad.data

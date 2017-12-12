@@ -4,12 +4,12 @@ const updateClient = {}
 
 updateClient.search = async (id, nombre, cedula, telefono, correo, mensualidad, imagen) => {
   const update = await gimnasioService.put(`update/${id}`, {
-    'nombre': nombre,
-    'cedula': cedula,
-    'telefono': telefono,
-    'correo': correo,
-    'mensualidad': mensualidad,
-    'imagen': imagen
+    nombre,
+    cedula,
+    telefono,
+    correo,
+    mensualidad,
+    imagen
   })
   if (update) {
     return update.data

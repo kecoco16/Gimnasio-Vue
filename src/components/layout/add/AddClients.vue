@@ -125,7 +125,17 @@ export default {
       const hoy = new Date().toJSON().slice(0, 10)
       const pago = editarFecha(hoy, '+1', 'm')
       if (this.nombre && this.cedula && this.telefono && this.MenSelect && this.correo && this.sexo) {
-        const client = AddClient.search(this.nombre, this.cedula, this.telefono, this.MenSelect, this.correo, this.sexo, this.image, hoy, pago)
+        const client = AddClient.search(
+          this.nombre,
+          this.cedula,
+          this.telefono,
+          this.MenSelect,
+          this.correo,
+          this.sexo,
+          this.image,
+          hoy,
+          pago
+        )
         if (client) {
           swal({
             title: 'Agregado con exito!',

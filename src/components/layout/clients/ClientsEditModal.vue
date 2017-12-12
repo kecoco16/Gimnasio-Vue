@@ -55,7 +55,15 @@
     methods: {
       async editar () {
         if (this.nombre && this.telefono && this.menSelect) {
-          const editar = await updateClient.search(this.id, this.nombre, this.cedula, this.telefono, this.correo, this.menSelect, this.image)
+          const editar = await updateClient.search(
+            this.id,
+            this.nombre,
+            this.cedula,
+            this.telefono,
+            this.correo,
+            this.menSelect,
+            this.image
+          )
           if (editar) {
             this.hide()
             this.$store.commit('pillActive', 'disable')

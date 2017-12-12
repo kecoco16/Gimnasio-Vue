@@ -4,15 +4,15 @@ const AddClient = {}
 
 AddClient.search = async (nombre, cedula, telefono, mensualidad, correo, sexo, imagen, hoy, pago) => {
   const newClient = await gimnasioService.post('newClient', {
-    nombre: nombre,
-    cedula: cedula,
-    telefono: telefono,
-    mensualidad: mensualidad,
-    correo: correo,
-    sexo: sexo,
-    imagen: imagen,
-    hoy: hoy,
-    pago: pago
+    nombre,
+    cedula,
+    telefono,
+    mensualidad,
+    correo,
+    sexo,
+    imagen,
+    hoy,
+    pago
   })
   if (newClient) {
     return newClient.data
