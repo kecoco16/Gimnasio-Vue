@@ -1,7 +1,7 @@
 <template lang="pug">
   main
     .box-payments.row(v-if='list.length > 0')
-      paginate.paginate-list(name='list', :list='list', :per="10")
+      paginate.paginate-list(name='list', :list='list', :per="10", ref="paginator")
       .row
         strong.item.col-sm-1.col-xs-1.col-md-1  #
         strong.item.col-sm-5.col-xs-8.col-md-5 Nombre
@@ -40,6 +40,7 @@ export default {
       return this.$store.state.profileModal
     },
     list () {
+      this.goToFirstPage()
       return this.$store.state.paymentsList
     }
   },
@@ -59,6 +60,11 @@ export default {
       } else {
         this.$store.commit('clientSelect', search[0])
         this.$store.commit('switchPayments')
+      }
+    },
+    goToFirstPage () {
+      if (this.$refs.paginator) {
+        this.$refs.paginator.goToPage(1)
       }
     }
   }
