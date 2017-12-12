@@ -35,8 +35,10 @@ export default {
     async buscar () {
       if (this.desde && this.hasta) {
         this.$store.commit('switchModal')
+        this.$store.commit('isLoading', true)
         const payments = await PaymentsFilter.search(this.desde, this.hasta)
         if (payments) {
+          this.$store.commit('isLoading', false)
           this.$store.commit('paymentsSelect', payments.reverse())
           this.desde = ''
           this.hasta = ''

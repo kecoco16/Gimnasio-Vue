@@ -2,8 +2,13 @@ import gimnasioService from './gimnasio'
 
 const deleteClients = {}
 
-deleteClients.search = q => gimnasioService.delete(`deleteClient/${q}`, {})
-  .then(res => res.data)
-  .catch(err => err)
+deleteClients.search = async q => {
+  const clientDelete = await gimnasioService.delete(`deleteClient/${q}`, {})
+  if (clientDelete) {
+    return clientDelete.data
+  } else {
+    console.log(err => err)
+  }
+}
 
 export default deleteClients

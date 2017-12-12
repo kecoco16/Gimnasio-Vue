@@ -32,6 +32,9 @@ export default {
       paginate: ['list']
     }
   },
+  created () {
+    this.$store.commit('paymentsSelect', [])
+  },
   computed: {
     Profile () {
       return this.$store.state.profileModal

@@ -2,8 +2,13 @@ import gimnasioService from './gimnasio'
 
 const todayPayments = {}
 
-todayPayments.search = () => gimnasioService.get(`todayPayments`, {})
-  .then(res => res.data)
-  .catch(err => err)
+todayPayments.search = async () => {
+  const todayPayment = await gimnasioService.get(`todayPayments`, {})
+  if (todayPayment) {
+    return todayPayment.data
+  } else {
+    console.log(err => err)
+  }
+}
 
 export default todayPayments

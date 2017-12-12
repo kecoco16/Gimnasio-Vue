@@ -2,18 +2,22 @@ import gimnasioService from './gimnasio'
 
 const searchByName = {}
 
-searchByName.search = q => gimnasioService.get(`clients/${q}`, {})
-  .then(res => res.data)
-  .catch(err => {
+searchByName.search = async q => {
+  const search = await gimnasioService.get(`clients/${q}`, {})
+  if (search) {
+    return search.data
+  } else {
     swal({
       title: 'Oops..Algo salio mal!',
       text: `${err}`,
       type: 'error',
       confirmButtonColor: '#3085d6',
       confirmButtonText: 'Aceptar!'
-    }).then(function () {
-      location.reload()
     })
-  })
+    setTimeout(() => {
+      location.reload()
+    }, 1800)
+  }
+}
 
 export default searchByName

@@ -2,9 +2,11 @@ import gimnasioService from './gimnasio'
 
 const todayClients = {}
 
-todayClients.search = () => gimnasioService.get(`today`, {})
-  .then(res => res.data)
-  .catch(err => {
+todayClients.search = async () => {
+  const today = await gimnasioService.get(`today`, {})
+  if (today) {
+    return today.data
+  } else {
     swal({
       type: 'error',
       title: 'Opps algo salio mal!',
@@ -12,9 +14,10 @@ todayClients.search = () => gimnasioService.get(`today`, {})
       timer: 2000,
       showConfirmButton: false
     })
-    setTimeout(function () {
+    setTimeout(() => {
       location.reload()
     }, 1800)
-  })
+  }
+}
 
 export default todayClients

@@ -34,10 +34,12 @@
       async pill1 () {
         const pill1 = document.getElementById('pill1')
         if (pill1.classList.value === 'active') { return }
+        this.$store.commit('isLoading', true)
         this.$store.commit('pillActive', 'pill1')
         this.$store.commit('paymentsSelect', [])
         const payments = await TodayPayments.search()
         if (payments) {
+          this.$store.commit('isLoading', false)
           this.$store.commit('paymentsSelect', payments.reverse())
         }
       },
@@ -49,10 +51,12 @@
       async pill3 () {
         const pill3 = document.getElementById('pill3')
         if (pill3.classList.value === 'active') { return }
+        this.$store.commit('isLoading', true)
         this.$store.commit('paymentsSelect', [])
         this.$store.commit('pillActive', 'pill3')
         const payments = await AllPayments.search()
         if (payments) {
+          this.$store.commit('isLoading', false)
           this.$store.commit('paymentsSelect', payments.reverse())
         }
       }
