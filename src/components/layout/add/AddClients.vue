@@ -56,13 +56,13 @@
 import mensualidad from '@/services/mensualidades'
 import AddClient from '@/services/AddClient'
 
-function editarFecha (fecha, intervalo, dma) {
-  var arrayFecha = fecha.split('-')
-  var dia = arrayFecha[2]
-  var mes = arrayFecha[1]
-  var anio = arrayFecha[0]
-  var fechaInicial = new Date(anio, mes - 1, dia)
-  var fechaFinal = fechaInicial
+const editarFecha = (fecha, intervalo, dma) => {
+  let arrayFecha = fecha.split('-')
+  let dia = arrayFecha[2]
+  let mes = arrayFecha[1]
+  let anio = arrayFecha[0]
+  let fechaInicial = new Date(anio, mes - 1, dia)
+  let fechaFinal = fechaInicial
   fechaFinal.setMonth(fechaInicial.getMonth() + parseInt(intervalo))
   dia = fechaFinal.getDate()
   mes = fechaFinal.getMonth() + 1
@@ -71,6 +71,7 @@ function editarFecha (fecha, intervalo, dma) {
   mes = (mes.toString().length === 1) ? '0' + mes.toString() : mes
   return anio + '-' + mes + '-' + dia
 }
+
 export default {
   name: 'app',
 
@@ -83,73 +84,59 @@ export default {
       sexo: '',
       image: '',
       MenSelect: '',
-      mensualidades: [],
-      send: false
+      mensualidades: []
     }
   },
-  created () {
-    mensualidad.search()
-      .then(res => {
-        this.mensualidades = res
-      })
+  async created () {
+    const getMensualidades = await mensualidad.search()
+    if (getMensualidades) {
+      this.mensualidades = getMensualidades
+    }
   },
   methods: {
-    validateBeforeSubmit () {
-      this.$validator.validateAll().then(result => {
-        if (!result) {
-          swal({
-            type: 'error',
-            html: $('<div>')
-              .addClass('.animated.fadeIn')
-              .text('Error! Faltan o hay datos incorrectos'),
-            animation: false,
-            customClass: 'animated tada',
-            timer: 1900,
-            showConfirmButton: false
-          }).then(
-            function () {},
-            function () {}
-          )
-        }
-      })
+    async validateBeforeSubmit () {
+      const validate = await this.$validator.validateAll()
+      if (!validate) {
+        swal({
+          type: 'error',
+          html: $('<div>')
+            .addClass('.animated.fadeIn')
+            .text('Error! Faltan o hay datos incorrectos'),
+          animation: false,
+          timer: 1500,
+          showConfirmButton: false
+        })
+      }
     },
     onFileChange (e) {
-      var files = e.target.files || e.dataTransfer.files
-      if (!files.length) {
-        return
-      }
+      const files = e.target.files || e.dataTransfer.files
+      if (!files.length) { return }
       this.createImage(files[0])
     },
     createImage (file) {
-      var reader = new FileReader()
-      var vm = this
-
+      const reader = new FileReader()
+      const vm = this
       reader.onload = (e) => {
         vm.image = e.target.result
       }
       reader.readAsDataURL(file)
     },
-    newClient: function () {
+    async newClient () {
       const hoy = new Date().toJSON().slice(0, 10)
       const pago = editarFecha(hoy, '+1', 'm')
-      let _self = this
       if (this.nombre && this.cedula && this.telefono && this.MenSelect && this.correo && this.sexo) {
-        AddClient.search(this.nombre, this.cedula, this.telefono, this.MenSelect, this.correo, this.sexo, this.image, hoy, pago)
-          .then(res => {
-            swal({
-              title: 'Agregado con exito!',
-              timer: 1200,
-              showConfirmButton: false,
-              type: 'success'
-            }).then(
-              function () {},
-              function (dismiss) {
-                if (dismiss === 'timer') {
-                  _self.$router.push('/home')
-                }
-              }
-            )
-          }).catch(err => err)
+        const client = AddClient.search(this.nombre, this.cedula, this.telefono, this.MenSelect, this.correo, this.sexo, this.image, hoy, pago)
+        if (client) {
+          swal({
+            title: 'Agregado con exito!',
+            timer: 1200,
+            showConfirmButton: false,
+            type: 'success'
+          })
+          setTimeout(() => {
+            this.$router.push('/home')
+          }, 1200)
+        }
       }
     }
   }

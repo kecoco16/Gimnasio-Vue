@@ -41,23 +41,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-img{
-  width: 200px;
-  margin: 0 auto;
-}
-
-.padding{
-  padding-bottom:0px;
-}
-
-.last {
-  margin-bottom:10px;
-}
-@media screen and (max-device-width : 480px) {
   img{
-  width: 160px;
-  padding: 0 auto;
-}
+    width: 200px;
+    margin: 0 auto;
+  }
 
-}
+  .padding{
+    padding-bottom:0px;
+  }
+
+  .last {
+    margin-bottom:10px;
+  }
+
+  @media screen and (max-device-width : 480px) {
+    img{
+      width: 160px;
+      padding: 0 auto;
+    }
+  }
 </style>

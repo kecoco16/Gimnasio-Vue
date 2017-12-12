@@ -2,9 +2,11 @@ import gimnasioService from './gimnasio'
 
 const allClients = {}
 
-allClients.search = () => gimnasioService.get(`all`, {})
-  .then(res => res.data)
-  .catch(err => {
+allClients.search = async () => {
+  const clients = await gimnasioService.get(`all`, {})
+  if (clients) {
+    return clients.data
+  } else {
     swal({
       type: 'error',
       title: 'Opps algo salio mal!',
@@ -15,5 +17,6 @@ allClients.search = () => gimnasioService.get(`all`, {})
     setTimeout(function () {
       location.reload()
     }, 1800)
-  })
+  }
+}
 export default allClients

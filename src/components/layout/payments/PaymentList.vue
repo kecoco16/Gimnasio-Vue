@@ -32,6 +32,9 @@ export default {
       paginate: ['list']
     }
   },
+  created () {
+    this.$store.commit('paymentsSelect', [])
+  },
   computed: {
     Profile () {
       return this.$store.state.profileModal
@@ -41,27 +44,22 @@ export default {
     }
   },
   methods: {
-    searchClient (id) {
-      SearchById.search(id)
-        .then(res => {
-          if (!res[0]) {
-            swal({
-              title: `😰`,
-              html: $('<div>')
-                .text(`Cliente no encontrado`),
-              animation: false,
-              timer: 1680,
-              showConfirmButton: false,
-              customClass: 'animated tada'
-            }).then(
-              function () {},
-              function () {}
-            )
-          } else {
-            this.$store.commit('clientSelect', res[0])
-            this.$store.commit('switchPayments')
-          }
+    async searchClient (id) {
+      const search = await SearchById.search(id)
+      if (!search[0]) {
+        swal({
+          title: `😰`,
+          html: $('<div>')
+            .text(`Cliente no encontrado`),
+          animation: false,
+          timer: 1680,
+          showConfirmButton: false,
+          customClass: 'animated tada'
         })
+      } else {
+        this.$store.commit('clientSelect', search[0])
+        this.$store.commit('switchPayments')
+      }
     }
   }
 }
