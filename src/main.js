@@ -26,6 +26,21 @@ const router = new VueRouter({
   mode: 'history'
 })
 
+// const isAuth = () => {
+//   return window.localStorage.auth
+// }
+
+// router.beforeEach((to, from, next) => {
+//   if (!to.meta.isPublic && !isAuth()) {
+//     return next('/')
+//   }
+
+//   if (to.name === 'login' && isAuth()) {
+//     return next('/home')
+//   }
+//   return next
+// })
+
 new Vue({
   el: '#app',
   render: h => h(App),
