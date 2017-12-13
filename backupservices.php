@@ -489,6 +489,23 @@ $app->post('/newMensualidad', function (Request $request, Response $response) {
     return $response->withJSON('Cliente eliminado');
   });
 
+  $app->post('/newUser', function (Request $request, Response $response) {
+
+    $name = $request->getParam('name');
+    $pass = $request->getParam('pass');
+
+    require_once "general.php";
+
+    $database->insert("tb_usuarios", [
+      "usuario" => $name,
+      "pass" => $pass
+    ]);
+
+    $response->getBody()->rewind();
+    return $response->withJSON('Usuario Agregado');
+
+  });
+
   $app->get('/user', function (Request $request, Response $response) {
 
     $name = $request->getParam('name');
