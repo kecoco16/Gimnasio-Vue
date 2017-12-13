@@ -7,7 +7,7 @@ AddMensualidad.search = async (nombre, mensualidad) => {
     nombre,
     mensualidad
   })
-  if (mensualidad) {
+  if (newMensualidad) {
     return newMensualidad.data
   } else {
     console.log(err => err)
