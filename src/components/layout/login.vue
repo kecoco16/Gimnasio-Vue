@@ -59,6 +59,7 @@ export default {
       if (await this.validateBeforeSubmit()) {
         const getUser = await authUser.search(this.name, this.pass)
         if (getUser.length === 0) {
+          window.localStorage.auth = false
           swal({
             type: 'error',
             html: $('<div>')
