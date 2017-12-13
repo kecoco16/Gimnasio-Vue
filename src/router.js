@@ -1,3 +1,6 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
 import Clientes from './components/layout/clients/Clients.vue'
 import Home from './components/layout/Home.vue'
 import Add from './components/layout/add/Add.vue'
@@ -12,4 +15,26 @@ const routes = [
   {path: '/payments', component: Payments, name: 'payments'}
 ]
 
-export default routes
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes,
+  mode: 'history'
+})
+
+// const isAuth = () => {
+//   return window.localStorage.auth
+// }
+
+// router.beforeEach((to, from, next) => {
+//   if (!to.meta.isPublic && !isAuth()) {
+//     return next('/')
+//   }
+
+//   if (to.name === 'login' && isAuth()) {
+//     return next('/home')
+//   }
+//   return next
+// })
+
+export default router
