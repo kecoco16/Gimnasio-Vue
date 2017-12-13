@@ -18,8 +18,7 @@
                 input.form-control(name='contraseña', v-model='password', v-validate="'required|min:6'", type='password', placeholder='contraseña', autocomplete='off')
                 i.fa.fa-warning(v-show="errors.has('contraseña')")
                 span.text-danger(v-show="errors.has('contraseña')") {{ errors.first('contraseña') }}
-              router-link(to='/home')
-                button.btn.btn-primary.btn-block Iniciar sesion 
+              button.btn.btn-primary.btn-block(@click="auth") Iniciar sesion 
     gym-footer
 </template>
 
@@ -51,6 +50,13 @@ export default {
           timer: 1500,
           showConfirmButton: false
         })
+      } else {
+        return true
+      }
+    },
+    async auth () {
+      if (await this.validateBeforeSubmit()) {
+        this.$router.push('/home')
       }
     }
   }

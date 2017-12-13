@@ -489,6 +489,32 @@ $app->post('/newMensualidad', function (Request $request, Response $response) {
     return $response->withJSON('Cliente eliminado');
   });
 
+  $app->get('/user', function (Request $request, Response $response) {
+
+    $name = $request->getParam('name');
+    $pass = $request->getParam('pass');
+
+    require_once "general.php";
+
+    $data = $database->select("tb_usuarios", "*", [
+      "AND" => [
+        "usuario" => $name,
+        "pass" => $pass
+      ]
+    ]);
+
+    $items = array();
+    $response->getBody()->rewind();
+    foreach ($data as $key => $val) {
+      $item = new stdClass;
+      $item->id_usuario = $data[$key]["id_usuario"];
+      $item->usuario = $data[$key]["usuario"];
+      $item->pass = $data[$key]["pass"];
+      $items[] = $item;      
+    }
+    return $response->withJSON($items);
+  });
+
   $app->run();
 
   ?>
