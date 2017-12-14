@@ -80,3 +80,18 @@ hr.style-line:before {
   background-color: #fff;
   border-radius: 6px;
 }
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+body {
+  margin: 10;
+  margin-bottom: 60px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+}
