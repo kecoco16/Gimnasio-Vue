@@ -26,6 +26,14 @@
             .info
               h3.title Registro de pagos
         .space
+      router-link(to='/edit')
+        .box.col-md-4.col-xs-12.col-sm-6
+          .icon
+            .image
+              i.fa.fa-pencil
+            .info
+              h3.title Editar
+        .space
     gym-footer
 </template>
 
@@ -51,4 +59,5 @@ export default {
   .box > .icon > .info > h3.title { font-family: "Roboto",sans-serif !important; font-size: 16px; color: #222; font-weight: 500; }
   .box > .icon:hover > .info > h3.title, .box > .icon:hover > .info > p, .box > .icon:hover > .info > .more > a { color: #222; }
   .box .space { height: 30px; }
+  .box {margin-bottom: 30px}
 </style>

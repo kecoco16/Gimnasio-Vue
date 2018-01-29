@@ -6,6 +6,7 @@ import Home from './components/layout/Home.vue'
 import Add from './components/layout/add/Add.vue'
 import Login from './components/layout/login.vue'
 import Payments from './components/layout/payments/Payments.vue'
+import Edit from './components/layout/edit/edit.vue'
 
 const routes = [
   {
@@ -36,6 +37,12 @@ const routes = [
     path: '/payments',
     component: Payments,
     name: 'payments',
+    meta: { isPublic: false }
+  },
+  {
+    path: '/edit',
+    component: Edit,
+    name: 'edit',
     meta: { isPublic: false }
   }
 ]
