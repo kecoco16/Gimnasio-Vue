@@ -22,27 +22,27 @@
       async pill1 () {
         const pill1 = document.getElementById('pill1')
         if (pill1.classList.value === 'active') { return }
-        this.$store.commit('isLoading', true)
+        // this.$store.commit('isLoading', true)
         this.$store.commit('clientsList', [])
         this.$store.commit('pillActive', 'pill1')
         const clients = await allClients.search()
         if (clients) {
-          this.$store.commit('isLoading', false)
+          // this.$store.commit('isLoading', false)
           this.$store.commit('clientsList', clients)
         }
       },
       async pill2 () {
         const pill2 = document.getElementById('pill2')
         if (pill2.classList.value === 'active') { return }
-        this.$store.commit('isLoading', true)
+        // this.$store.commit('isLoading', true)
         this.$store.commit('clientsList', [])
         this.$store.commit('pillActive', 'pill2')
         const clients = await todayClients.search()
         if (clients) {
-          this.$store.commit('isLoading', false)
+          // this.$store.commit('isLoading', false)
           this.$store.commit('clientsList', clients)
         }
       }
     }
 }
-</script> 
+</script>  

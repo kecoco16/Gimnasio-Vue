@@ -21,8 +21,13 @@ export default {
   components: {GymLoader, GymFooter, GymAddPills, GymNavBar},
 
   created () {
+    this.$store.commit('clientsList', [])
+    this.$store.commit('pillActive', 'disable')
   },
   computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
   }
 }
 </script>
