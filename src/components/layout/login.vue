@@ -28,7 +28,7 @@
               )
               i.fa.fa-warning(v-show="errors.has('contraseña')")
               span.text-danger(v-show="errors.has('contraseña')") {{ ` ${errors.first('contraseña')}` }}
-            button.btn.btn-primary.btn-block.login-bottom(@click="auth") Iniciar sesion 
+            button.login-bottom.btn.btn-primary.btn-block(@click="auth") Iniciar sesion 
     gym-footer.login-footer
 </template>
 
@@ -67,57 +67,3 @@
     }
   }
 </script>
-
-<style lang="scss" scoped>
-  .login-modal-mask {
-    position: fixed;
-    z-index: 9999;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    display: table;
-  }
-
-  .login-modal-wrapper {
-    display: table-cell;
-    vertical-align: middle;
-  }
-
-  .login-modal-container {
-    float: none;
-    margin: 0px auto;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 6px;
-  }
-
-  .login-tittle {
-    margin-top: 0px;
-    margin-bottom: 20px;
-  }
-
-  .login-footer {
-    min-height: 40px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-  }
-
-  .login-bottom {
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-    border: 1px solid;
-  }
-  
-  .login-bottom:focus {
-    outline: none;
-  }
-
-  // Large devices (desktops, 992px and up)
-  @media (min-width: 992px) {
-    .login-bottom:hover {
-      background: #044a90;
-    }
-  }
-
-</style>
