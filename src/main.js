@@ -16,7 +16,6 @@ const config = {
 
 Vue.use(VeeValidate, config)
 Vue.use(dateFormat)
-Vue.use(VeeValidate, config)
 Vue.use(VuePaginate)
 
 new Vue({

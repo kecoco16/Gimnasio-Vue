@@ -27,7 +27,8 @@ export default {
 <style lang="scss">
   .margin {
     margin: 8px;
-  },
+  }
+
   .margin-right {
     margin-right: 10px;
   }

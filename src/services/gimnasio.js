@@ -1,8 +1,7 @@
 import trae from 'trae'
-import configService from './config'
 
 const gimnasioService = trae.create({
-  baseUrl: configService.apiUrl
+  baseUrl: ''
 })
 
 export default gimnasioService
