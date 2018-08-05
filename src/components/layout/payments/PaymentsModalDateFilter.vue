@@ -53,7 +53,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 #derecha{
   margin-right:4px;
 }

@@ -5,7 +5,7 @@
     
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .loader,
 .loader:after {
   border-radius: 50%;

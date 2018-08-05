@@ -5,16 +5,12 @@ import store from './store.js'
 import router from './router'
 import dateFormat from './filters/dateFormat'
 import VeeValidate, { Validator } from 'vee-validate'
-import languaje from 'vee-validate/dist/locale/es'
+import veeConfig from './config/veeValidate'
 import VuePaginate from 'vue-paginate'
 
-Validator.addLocale(languaje)
+Validator.localize(veeConfig.lenguaje)
 
-const config = {
-  locale: 'es'
-}
-
-Vue.use(VeeValidate, config)
+Vue.use(VeeValidate, veeConfig.config)
 Vue.use(dateFormat)
 Vue.use(VuePaginate)
 

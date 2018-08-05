@@ -27,7 +27,7 @@ export default {
 }
 </script> 
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .box-form{
   margin-left: auto;
   margin-right: auto;

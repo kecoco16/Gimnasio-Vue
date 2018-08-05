@@ -60,7 +60,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   .margin-left{
     margin-left: 20px
   }

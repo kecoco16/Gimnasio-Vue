@@ -65,7 +65,7 @@
 </script> 
 
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .modal-container-date {
   width: 400px;
   height: auto;

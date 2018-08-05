@@ -107,7 +107,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="css">
 img{
   width: 40%;
   margin: auto;

@@ -71,7 +71,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .box-payments{
   margin-left: auto;
   margin-right: auto;

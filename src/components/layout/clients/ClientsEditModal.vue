@@ -114,7 +114,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="css">
   #derecha{
     margin-right:4px;
   }
