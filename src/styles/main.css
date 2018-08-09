@@ -80,6 +80,11 @@
   color: #222;
 }
 
+.client-navbar-padding {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
 @media (min-width: 992px) {
   .login-bottom:hover {
     background: #044a90;
@@ -140,17 +145,6 @@ hr.style-line:before {
   border-color: #8c8b8b; 
   border-width: 0 0 1px 0; 
   border-radius: 20px; 
-}
-
-.nav-tabs > li, .nav-pills > li {
-  float:none;
-  display:inline-block;
-  *display:inline; /* ie7 fix */
-  zoom:1; /* hasLayout ie7 trigger */
-}
-
-.nav-tabs, .nav-pills {
-  text-align:center;
 }
 
 .modal-mask {

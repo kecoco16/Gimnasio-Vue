@@ -10,7 +10,7 @@
         input#buscar.form-control(
           placeholder='Buscar aquí...',
           autofocus=''
-          v-model="searchQuery",
+          v-model="name",
           @keyup.enter="search"
         )
       .col-xs-1.client-navbar-padding
@@ -28,37 +28,32 @@
 
 <script>
   // Services.
-  import searchByName from '@/services/search'
+  import { getByNameError, requestError } from '@/services/errorMessages'
+
   export default {
     name: 'ClientNavBar',
     data () {
       return {
-        searchQuery: ''
+        name: ''
       }
     },
     methods: {
       async search () {
-        if (!this.searchQuery) { return }
-        this.$store.commit('pillActive', 'disable')
-        this.$store.commit('clientsList', [])
-        this.$store.commit('isLoading', true)
-        const clients = await searchByName.search(this.searchQuery)
-        if (clients.length > 0) {
-          this.$store.commit('isLoading', false)
-          this.$store.commit('clientsList', clients)
-          this.searchQuery = ''
-        } else {
-          this.$store.commit('isLoading', false)
-          this.searchQuery = ''
-          swal({
-            title: `😰`,
-            html: $('<div>')
-              .text(`No hay resultados con ${this.searchQuery}`),
-            animation: false,
-            timer: 1680,
-            showConfirmButton: false,
-            customClass: 'animated tada'
-          })
+        if (!this.name) {
+          return
+        }
+
+        const clients = await this.$store.dispatch(
+          'getClientsByName',
+          { name: this.name }
+        )
+
+        if (clients.message) {
+          return requestError()
+        }
+
+        if (clients.length === 0) {
+          return getByNameError(this.name)
         }
       },
       signOut () {
@@ -72,10 +67,5 @@
 <style lang="css" scoped>
   .margin-left{
     margin-left: 25px
-  }
-
-  .client-navbar-padding {
-    padding-left: 10px;
-    padding-right: 10px;
   }
 </style>

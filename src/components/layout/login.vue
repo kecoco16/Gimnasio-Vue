@@ -35,7 +35,7 @@
 <script>
   // Services.
   import login from '@/services/login'
-  import { loginError } from '@/services/errorMessages'
+  import { loginError, requestError } from '@/services/errorMessages'
 
   // Components.
   import GymFooter from '@/components/shared/Footer.vue'
@@ -57,7 +57,12 @@
         }
 
         const user = await login(this.name, this.password)
-        if (!user) {
+
+        if (user.message === 'Failed to fetch') {
+          return requestError()
+        }
+
+        if (user.message) {
           return loginError()
         }
 

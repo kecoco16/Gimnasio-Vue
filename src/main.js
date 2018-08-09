@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import store from './store.js'
+import store from '../src/store/'
 
 import router from './router'
 import dateFormat from './filters/dateFormat'
