@@ -9,7 +9,7 @@
         a Hoy
       li#pill3(@click='getLate', :class="pillsState[2]")
         a Atrasados
-    hr.style-line
+    hr.decorate
 </template>
 
 <script>
@@ -74,5 +74,23 @@
   li {
     float:none;
     display:inline-block;
+  }
+  .decorate {
+    overflow: visible;
+    height: 30px;
+    border-style: solid;
+    border-color:	#D0D0D0;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+  }
+  .decorate:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #D0D0D0;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
   }
 </style>

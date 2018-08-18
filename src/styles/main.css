@@ -85,6 +85,16 @@
   padding-right: 10px;
 }
 
+.clientImgProfile {
+  width: 150px;
+  height:150px;
+  margin-top: 5px;
+}
+
+.clientOptions{
+  margin: 10px;
+}
+
 @media (min-width: 992px) {
   .login-bottom:hover {
     background: #044a90;
@@ -107,19 +117,8 @@
   box-shadow: inset 0 0 10px rgba(0,0,0,.2);
 }
 
-.card-img-top{
-  width: 150px;
-  height:150px;
-  margin-top: 5px;
-}
-
 .list-group-item{
   padding: 8px;
-}
-
-.options{
-  margin-top: 10px;
-  margin-bottom: 10px;
 }
 
 .card-deck{

@@ -6,6 +6,7 @@ import clients from '@/services/getClients'
 import todayClients from '@/services/getTodayClients'
 import lateClients from '@/services/getLateClients'
 import clientByName from '@/services/getClientByName'
+import { clientPayment } from '@/services/clientPayment'
 
 Vue.use(Vuex)
 
@@ -116,6 +117,26 @@ const store = new Vuex.Store({
         context.commit('isLoading', false)
         context.commit('setClients', clients)
         return clients
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
+    async payment (context, payload) {
+      const {
+        amount,
+        clientId,
+        userId
+      } = payload
+      try {
+        context.commit('beforeSubmit')
+        const payment = await clientPayment(
+          amount,
+          clientId,
+          userId
+        )
+        context.commit('isLoading', false)
+        return payment
       } catch (err) {
         console.log(err)
         return new Error(err)
