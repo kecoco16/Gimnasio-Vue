@@ -19,12 +19,13 @@
             i.fa.fa-credit-card-alt.fa-2x
           a(title='Editar', @click='editar(c)')
             i.fa.fa-pencil.fa-2x(style='padding-left:10px;')
-          a(title='Eliminar', @click='eliminar(c)')
+          a(title='Eliminar', @click='deleteClient(c)')
             i.fa.fa-trash.fa-2x(style='padding-left:10px;')    
 </template>
 
 <script>
   import { confirmModal, successModal } from '@/services/clientPayment'
+  import { confirm, success } from '@/services/deleteClient'
   import { requestError } from '@/services/errorMessages'
 
   export default {
@@ -58,28 +59,26 @@
 
         return successModal()
       },
-      async eliminar (c) {
-        // const eliminar = await swal({
-        //   title: '¿Esta seguro(a)?',
-        //   text: 'El cliente sera eliminaro(a)',
-        //   type: 'warning',
-        //   showCancelButton: true,
-        //   confirmButtonColor: '#DD6B55',
-        //   confirmButtonText: 'Si, eliminar!',
-        //   cancelButtonText: 'Cancelar',
-        //   allowOutsideClick: false
-        // })
-        // if (eliminar) {
-        //   deleteClients.search(c.id_clientes)
-        //   this.$store.commit('pillActive', 'disable')
-        //   this.$store.commit('clientsList', [])
-        //   swal({
-        //     title: 'Eliminado con exito!',
-        //     timer: 1200,
-        //     showConfirmButton: false,
-        //     type: 'success'
-        //   })
-        // }
+      async deleteClient (c) {
+        const response = await confirm()
+        if (!response) {
+          return
+        }
+
+        const payload = {
+          id: c.id
+        }
+
+        const client = await this.$store.dispatch(
+          'delete',
+          payload
+        )
+
+        if (client) {
+          return requestError()
+        }
+
+        return success()
       },
       editar (c) {
         // this.$store.commit('switchEdit')

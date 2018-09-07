@@ -7,6 +7,7 @@ import todayClients from '@/services/getTodayClients'
 import lateClients from '@/services/getLateClients'
 import clientByName from '@/services/getClientByName'
 import { clientPayment } from '@/services/clientPayment'
+import { deleteClient } from '@/services/deleteClient'
 
 Vue.use(Vuex)
 
@@ -137,6 +138,18 @@ const store = new Vuex.Store({
         )
         context.commit('isLoading', false)
         return payment
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
+    async delete (context, payload) {
+      const { id } = payload
+      try {
+        context.commit('beforeSubmit')
+        const client = await deleteClient(id)
+        context.commit('isLoading', false)
+        return client
       } catch (err) {
         console.log(err)
         return new Error(err)

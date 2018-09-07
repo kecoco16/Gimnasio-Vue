@@ -1,6 +1,6 @@
 import { get } from './utils'
 
-const clients = async (name) => {
+const clients = async () => {
   try {
     const clients = await get(`getTodayClients`, {})
     return clients
