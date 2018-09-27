@@ -154,6 +154,14 @@ const store = new Vuex.Store({
         console.log(err)
         return new Error(err)
       }
+    },
+    editClientModal (context, payload) {
+      context.commit('switchEdit')
+      context.commit('clientSelect', payload.client)
+    },
+    profileClientModal (context, payload) {
+      context.commit('switchProfile')
+      context.commit('clientSelect', payload.client)
     }
   }
 })

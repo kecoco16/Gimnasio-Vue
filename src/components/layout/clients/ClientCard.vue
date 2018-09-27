@@ -17,7 +17,7 @@
         .clientOptions.text-center
           a(title='Realizar pago', @click='payment(c)')
             i.fa.fa-credit-card-alt.fa-2x
-          a(title='Editar', @click='editar(c)')
+          a(title='Editar', @click='editClient(c)')
             i.fa.fa-pencil.fa-2x(style='padding-left:10px;')
           a(title='Eliminar', @click='deleteClient(c)')
             i.fa.fa-trash.fa-2x(style='padding-left:10px;')    
@@ -80,13 +80,17 @@
 
         return success()
       },
-      editar (c) {
-        // this.$store.commit('switchEdit')
-        // this.$store.commit('clientSelect', c)
+      editClient (client) {
+        this.$store.dispatch(
+          'editClientModal',
+          { client }
+        )
       },
-      profileModal (c) {
-        // this.$store.commit('clientSelect', c)
-        // this.$store.commit('switchPayments')
+      profileModal (client) {
+        this.$store.dispatch(
+          'profileClientModal',
+          { client }
+        )
       }
     }
   }

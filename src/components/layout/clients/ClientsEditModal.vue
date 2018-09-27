@@ -36,11 +36,11 @@
     name: 'editModal',
     data () {
       return {
-        id: this.$store.state.clientSelect.id_clientes,
-        nombre: this.$store.state.clientSelect.nombre,
-        cedula: this.$store.state.clientSelect.cedula,
-        telefono: this.$store.state.clientSelect.telefono,
-        correo: this.$store.state.clientSelect.correo,
+        id: this.$store.state.clientSelect.id,
+        nombre: this.$store.state.clientSelect.name,
+        cedula: this.$store.state.clientSelect.idNumber,
+        telefono: this.$store.state.clientSelect.phone,
+        correo: this.$store.state.clientSelect.email,
         menSelect: '',
         image: '',
         mensualidades: []
