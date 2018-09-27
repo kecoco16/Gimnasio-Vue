@@ -4,9 +4,9 @@
     .box-principal.animated.bounceInDown
       gym-add-pills
     .box-form
-      gym-add-clients.animated.fadeIn(v-show='this.$store.state.pill1')
-      gym-add-mensualidad.animated.fadeIn(v-show='this.$store.state.pill2')
-      gym-add-users.animated.fadeIn(v-show='this.$store.state.pill3')
+      gym-add-clients.animated.fadeIn(v-show='this.$store.state.pills[0]')
+      gym-add-mensualidad.animated.fadeIn(v-show='this.$store.state.pills[1]')
+      gym-add-users.animated.fadeIn(v-show='this.$store.state.pills[2]')
     gym-footer
 </template>
 
@@ -28,16 +28,16 @@ export default {
 </script> 
 
 <style lang="css" scoped>
-.box-form{
-  margin-left: auto;
-  margin-right: auto;
-  width: 35%;
-}
-@media screen and (max-device-width : 480px) {
   .box-form{
     margin-left: auto;
     margin-right: auto;
-    width: 70%;
+    width: 35%;
   }
-} 
+  @media screen and (max-device-width : 480px) {
+    .box-form{
+      margin-left: auto;
+      margin-right: auto;
+      width: 70%;
+    }
+  } 
 </style>

@@ -153,11 +153,11 @@ export default {
 }
 </script>
 <style lang='css' scoped>
-img{
-  width: 50%;
-  margin: auto;
-  display: block;
-  margin-top: 20px;
-  border-radius:5%;
-}
+  img{
+    width: 50%;
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+    border-radius:5%;
+  }
 </style>

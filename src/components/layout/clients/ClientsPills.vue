@@ -25,12 +25,11 @@
     },
     methods: {
       async getAll () {
-        this.$store.commit('pillActive', 0)
         const isActive = document.getElementById('pill1').classList.value
         if (isActive) {
           return
         }
-
+        this.$store.commit('pillActive', 0)
         const clients = await this.$store.dispatch('getClients')
 
         if (clients.message) {
@@ -39,12 +38,11 @@
         }
       },
       async getToday () {
-        this.$store.commit('pillActive', 1)
         const isActive = document.getElementById('pill2').classList.value
         if (isActive) {
           return
         }
-
+        this.$store.commit('pillActive', 1)
         const clients = await this.$store.dispatch('getTodayClients')
 
         if (clients.message) {
@@ -53,12 +51,11 @@
         }
       },
       async getLate () {
-        this.$store.commit('pillActive', 2)
         const isActive = document.getElementById('pill3').classList.value
         if (isActive) {
           return
         }
-
+        this.$store.commit('pillActive', 2)
         const clients = await this.$store.dispatch('getLateClients')
 
         if (clients.message) {
