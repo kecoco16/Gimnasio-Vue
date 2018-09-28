@@ -53,10 +53,9 @@ export default {
 
         const payload = {
           name: this.name,
-          amount: 50000
+          amount: this.membership
         }
 
-        console.log(payload)
         const membership = await this.$store.dispatch(
           'updateOrCreatedMembership',
           payload
