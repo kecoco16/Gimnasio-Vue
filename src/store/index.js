@@ -8,6 +8,7 @@ import lateClients from '@/services/getLateClients'
 import clientByName from '@/services/getClientByName'
 import { clientPayment } from '@/services/clientPayment'
 import { deleteClient } from '@/services/deleteClient'
+import { createOrUpdateClient } from '@/services/createOrUpdateClient'
 
 Vue.use(Vuex)
 
@@ -72,6 +73,15 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+    async updateOrCreatedClient (context, payload) {
+      try {
+        const client = await createOrUpdateClient(payload)
+        return client
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
     async getClients (context) {
       try {
         context.commit('isLoading', true)
