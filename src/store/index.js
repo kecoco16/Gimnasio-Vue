@@ -9,6 +9,7 @@ import clientByName from '@/services/getClientByName'
 import { clientPayment } from '@/services/clientPayment'
 import { deleteClient } from '@/services/deleteClient'
 import { createOrUpdateClient } from '@/services/createOrUpdateClient'
+import { createOrUpdateMembership } from '@/services/createOrUpdateMembership'
 
 Vue.use(Vuex)
 
@@ -77,6 +78,15 @@ const store = new Vuex.Store({
       try {
         const client = await createOrUpdateClient(payload)
         return client
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
+    async updateOrCreatedMembership (context, payload) {
+      try {
+        const membership = await createOrUpdateMembership(payload)
+        return membership
       } catch (err) {
         console.log(err)
         return new Error(err)

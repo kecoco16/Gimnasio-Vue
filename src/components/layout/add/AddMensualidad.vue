@@ -5,27 +5,28 @@
         .form-group
           i.fa.fa-id-card-o
           label.control-label &nbsp Nombre
-          input.form-control(name='nombre', v-model='nombre', v-validate="'required|alpha_spaces'", type='text', placeholder='nombre')
+          input.form-control(name='nombre', v-model='name', v-validate="'required|alpha_spaces'", type='text', placeholder='nombre')
           i.fa.fa-warning(v-show="errors.has('nombre')")
           span.text-danger(v-show="errors.has('nombre')") {{ errors.first('nombre') }}
         .form-group
           i.fa.fa-money
           label.control-label &nbsp Monto mensualidad
-          input.form-control(name='mensualidad', v-model='mensualidad', v-validate="'required|numeric'", type='text', placeholder='0')
+          input.form-control(name='mensualidad', v-model='membership', v-validate="'required|numeric'", type='text', placeholder='0')
           i.fa.fa-warning(v-show="errors.has('mensualidad')")
           span.text-danger(v-show="errors.has('mensualidad')") {{ errors.first('mensualidad') }}
-        button.btn.btn-primary.btn-block(type='submit', @click='newMensualidad') Agregar 
+        button.btn.btn-primary.btn-block(type='submit', @click='newMemberhip') Agregar 
 </template>
 
 <script>
-import AddMensualidad from '@/services/AddMensualidad'
+import { confirmModal, successModal } from '@/services/createOrUpdateMembership'
+import { requestError } from '@/services/errorMessages'
 
 export default {
   name: 'app',
   data () {
     return {
-      nombre: '',
-      mensualidad: ''
+      name: '',
+      membership: ''
     }
   },
   methods: {
@@ -43,20 +44,29 @@ export default {
         })
       }
     },
-    async newMensualidad () {
-      if (this.nombre && this.mensualidad) {
-        const mensualidad = await AddMensualidad.search(this.nombre, this.mensualidad)
-        if (mensualidad) {
-          swal({
-            title: 'Agregada con exito!',
-            timer: 1200,
-            showConfirmButton: false,
-            type: 'success'
-          })
-          setTimeout(() => {
-            this.$router.push('/home')
-          }, 1200)
+    async newMemberhip () {
+      if (this.name && this.membership) {
+        const response = await confirmModal()
+        if (!response) {
+          return
         }
+
+        const payload = {
+          name: this.name,
+          amount: 50000
+        }
+
+        console.log(payload)
+        const membership = await this.$store.dispatch(
+          'updateOrCreatedMembership',
+          payload
+        )
+
+        if (membership.message) {
+          return requestError()
+        }
+
+        return successModal()
       }
     }
   }

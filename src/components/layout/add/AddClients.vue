@@ -55,6 +55,7 @@
 <script>
 import { confirmModal, successModal } from '@/services/createOrUpdateClient'
 import memberships from '@/services/getMemberships'
+import { requestError } from '@/services/errorMessages'
 import Swal from 'sweetalert2'
 import moment from 'moment'
 
