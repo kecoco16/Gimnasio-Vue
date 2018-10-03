@@ -1,10 +1,10 @@
 import { post } from './utils'
 import Swal from 'sweetalert2'
 
-export const createOrUpdateMembership = async payload => {
+export const createOrUpdateUser = async payload => {
   try {
-    const membership = await post('createOrUpdateMembership', payload)
-    return membership
+    const user = await post('createOrUpdateUser', payload)
+    return user
   } catch (err) {
     return new Error(err)
   }
@@ -13,7 +13,7 @@ export const createOrUpdateMembership = async payload => {
 export const confirmModal = () => (
   Swal({
     title: '¿Esta seguro(a)?',
-    text: 'Crear nueva mensualidad',
+    text: 'Crear nuevo usuario',
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#04498d',
@@ -25,7 +25,7 @@ export const confirmModal = () => (
 
 export const successModal = () => (
   Swal({
-    title: 'Mensualidad creada con exito!',
+    title: 'Usuario creado con exito!',
     type: 'success',
     'timer': 1600,
     'showConfirmButton': false
