@@ -22,7 +22,6 @@
 
 <script>
 import ProfileModal from '@/components/shared/ModalProfile.vue'
-import SearchById from '@/services/ClientById'
 
 export default {
   components: {ProfileModal},
@@ -46,21 +45,8 @@ export default {
   },
   methods: {
     async searchClient (id) {
-      const search = await SearchById.search(id)
-      if (!search[0]) {
-        swal({
-          title: `😰`,
-          html: $('<div>')
-            .text(`Cliente no encontrado`),
-          animation: false,
-          timer: 1680,
-          showConfirmButton: false,
-          customClass: 'animated tada'
-        })
-      } else {
-        this.$store.commit('clientSelect', search[0])
-        this.$store.commit('switchPayments')
-      }
+      this.$store.commit('clientSelect', {})
+      this.$store.commit('switchPayments')
     },
     goToFirstPage () {
       if (this.$refs.paginator) {

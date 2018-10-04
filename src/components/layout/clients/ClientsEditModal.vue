@@ -29,9 +29,6 @@
 </template>
 
 <script>
-  import updateClient from '@/services/updateClient'
-  import mensualidad from '@/services/mensualidades'
-
   export default {
     name: 'editModal',
     data () {
@@ -46,36 +43,8 @@
         mensualidades: []
       }
     },
-    async created () {
-      const getMensualidades = await mensualidad.search()
-      if (getMensualidades) {
-        this.mensualidades = getMensualidades
-      }
-    },
     methods: {
       async editar () {
-        if (this.nombre && this.telefono && this.menSelect) {
-          const editar = await updateClient.search(
-            this.id,
-            this.nombre,
-            this.cedula,
-            this.telefono,
-            this.correo,
-            this.menSelect,
-            this.image
-          )
-          if (editar) {
-            this.hide()
-            this.$store.commit('pillActive', 'disable')
-            this.$store.commit('clientsList', [])
-            swal({
-              title: 'Editado con exito!',
-              timer: 1200,
-              showConfirmButton: false,
-              type: 'success'
-            })
-          }
-        }
       },
       hide () {
         this.$store.commit('switchEdit')
@@ -125,4 +94,3 @@
     z-index: 100000
   }
 </style>
-
