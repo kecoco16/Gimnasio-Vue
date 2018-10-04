@@ -6,6 +6,9 @@ import clients from '@/services/getClients'
 import todayClients from '@/services/getTodayClients'
 import lateClients from '@/services/getLateClients'
 import clientByName from '@/services/getClientByName'
+import getTodayPayments from '@/services/getTodayPayments'
+import getAllPayments from '@/services/getAllPayments'
+import getPaymentsByDates from '@/services/getPaymentsByDates'
 import { clientPayment } from '@/services/clientPayment'
 import { deleteClient } from '@/services/deleteClient'
 import { createOrUpdateClient } from '@/services/createOrUpdateClient'
@@ -37,6 +40,9 @@ const store = new Vuex.Store({
     },
     setClients (state, clients) {
       state.clientsList = clients
+    },
+    setPayments (state, payments) {
+      state.paymentsList = payments
     },
     switchProfile (state) {
       state.profileModal = !state.profileModal
@@ -180,6 +186,46 @@ const store = new Vuex.Store({
         const client = await deleteClient(id)
         context.commit('isLoading', false)
         return client
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
+    async todayPayments (context, payload) {
+      try {
+        context.commit('isLoading', true)
+        context.commit('setPayments', [])
+        const payments = await getTodayPayments()
+        context.commit('isLoading', false)
+        context.commit('setPayments', payments)
+        return payments
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
+    async allPayments (context) {
+      try {
+        context.commit('isLoading', true)
+        context.commit('setPayments', [])
+        const payments = await getAllPayments()
+        context.commit('isLoading', false)
+        context.commit('setPayments', payments)
+        return payments
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
+    async paymentsByDate (context, payload) {
+      try {
+        context.commit('modalState', false)
+        context.commit('isLoading', true)
+        context.commit('setPayments', [])
+        const payments = await getPaymentsByDates(payload)
+        context.commit('isLoading', false)
+        context.commit('setPayments', payments)
+        return payments
       } catch (err) {
         console.log(err)
         return new Error(err)

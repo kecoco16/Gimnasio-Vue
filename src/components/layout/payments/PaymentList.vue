@@ -9,9 +9,9 @@
         strong.item.col-sm-3.col-xs-1.col-md-2 Monto
       .row.sombra(v-for="(p,i) in paginated('list')")
         p.item.col-sm-1.col-xs-1.col-md-1 {{i+1}}
-        a.item.col-sm-5.col-xs-8.col-md-5(@click="searchClient(p.id_clientes)") {{p.nombre}}
-        p.item.col-sm-3.col-xs-2.col-md-3.hidden-xs {{p.fecha | dateFormat}}
-        p.item.col-sm-3.col-xs-1.col-md-2 {{p.pago}}
+        a.item.col-sm-5.col-xs-8.col-md-5(@click="searchClient(p.id_clientes)") {{p['client.name']}}
+        p.item.col-sm-3.col-xs-2.col-md-3.hidden-xs {{p.date}}
+        p.item.col-sm-3.col-xs-1.col-md-2 {{p.amount}}
       .col-md-4.col-md-offset-8.col-xs-12.col-sm-12
         paginate-links(for='list',v-if="list.length > 10" :simple="{next: 'Siguiente',prev: 'Anterior'}", :classes="{'ul': 'pager','li': 'col-xs-6'}")  
     .modal-mask(v-if='Profile')
@@ -75,7 +75,7 @@ export default {
 .box-payments{
   margin-left: auto;
   margin-right: auto;
-  width: 65%;
+  width: 70%;
 }
 .item{
   margin-bottom:10px;

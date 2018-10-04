@@ -1,26 +1,20 @@
 <template lang="pug">
   main
-    .container
-      h1.text-center
-        | Listado de Pagos
-      ul.nav.nav-pills
-        li#pill1(@click='pill1', :class="pillsState[0]")
-          a Hoy
-        li#pill2(@click='pill2', :class="pillsState[1]")
-          a Filtrar
-        li#pill3(@click='pill3', :class="pillsState[2]")
-          a Todos
-      hr.style-line
-    .modal-mask(v-if='this.$store.state.modal')
-      .modal-wrapper.animated.bounceIn
-        .modal-container-date
-          gym-filter-modal
+    h1.text-center
+      | Listado de Pagos
+    ul.nav.nav-pills.text-center
+      li#pill1(@click='today', :class="pillsState[0]")
+        a Hoy
+      li#pill2(@click='filter', :class="pillsState[1]")
+        a Filtrar
+      li#pill3(@click='all', :class="pillsState[2]")
+        a Todos
+    hr.decorate
 </template>
 
 <script>
-  import AllPayments from '@/services/allPayments'
-  import TodayPayments from '@/services/todayPayments'
   import GymFilterModal from './PaymentsModalDateFilter.vue'
+  import { requestError } from '@/services/errorMessages'
 
   export default {
     name: 'AddPills',
@@ -31,33 +25,41 @@
       }
     },
     methods: {
-      async pill1 () {
-        const pill1 = document.getElementById('pill1')
-        if (pill1.classList.value === 'active') { return }
-        this.$store.commit('isLoading', true)
-        this.$store.commit('pillActive', 'pill1')
-        this.$store.commit('paymentsSelect', [])
-        const payments = await TodayPayments.search()
-        if (payments) {
-          this.$store.commit('isLoading', false)
-          this.$store.commit('paymentsSelect', payments.reverse())
+      async today () {
+        const isActive = document.getElementById('pill1').classList.value
+        if (isActive) {
+          return
+        }
+
+        this.$store.commit('pillActive', 0)
+        const payments = await this.$store.dispatch('todayPayments')
+
+        if (payments.message) {
+          this.$store.commit('pillActive', null)
+          return requestError()
         }
       },
-      pill2 () {
-        this.$store.commit('paymentsSelect', [])
-        this.$store.commit('pillActive', 'pill2')
+      filter () {
+        const isActive = document.getElementById('pill2').classList.value
+        if (isActive) {
+          return
+        }
+
+        this.$store.commit('pillActive', 1)
         this.$store.commit('modalState', true)
       },
-      async pill3 () {
-        const pill3 = document.getElementById('pill3')
-        if (pill3.classList.value === 'active') { return }
-        this.$store.commit('isLoading', true)
-        this.$store.commit('paymentsSelect', [])
-        this.$store.commit('pillActive', 'pill3')
-        const payments = await AllPayments.search()
-        if (payments) {
-          this.$store.commit('isLoading', false)
-          this.$store.commit('paymentsSelect', payments.reverse())
+      async all () {
+        const isActive = document.getElementById('pill3').classList.value
+        if (isActive) {
+          return
+        }
+
+        this.$store.commit('pillActive', 2)
+        const payments = await this.$store.dispatch('allPayments')
+
+        if (payments.message) {
+          this.$store.commit('pillActive', null)
+          return requestError()
         }
       }
     }
@@ -66,33 +68,26 @@
 
 
 <style lang="css" scoped>
-.modal-container-date {
-  width: 400px;
-  height: auto;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 6px;
-}
-
-@media screen and (max-device-width : 480px) {
-  .modal-container-date {
-    width: auto;
-    margin:15px !important;
-    height: auto;
-    margin: 0px auto;
-    padding: 20px 30px;
-    background-color: #fff;
-    border-radius: 6px;
+  li {
+    float:none;
+    display:inline-block;
   }
-  .modal-container{
-    width: auto;
-    margin:15px !important;
-    height: auto;
-    margin: 0px auto;
-    padding: 20px 30px;
-    background-color: #fff;
-    border-radius: 6px;
+  .decorate {
+    overflow: visible;
+    height: 30px;
+    border-style: solid;
+    border-color:	#D0D0D0;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
   }
-}
+  .decorate:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #D0D0D0;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+  }
 </style>
