@@ -102,9 +102,8 @@ export default {
     },
     createImage (file) {
       const reader = new FileReader()
-      const vm = this
-      reader.onload = (e) => {
-        vm.image = e.target.result
+      reader.onload = e => {
+        this.image = e.target.result
       }
       reader.readAsDataURL(file)
     },
