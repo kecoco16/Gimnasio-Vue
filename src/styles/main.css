@@ -1,0 +1,190 @@
+.login-modal-mask {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+}
+
+.login-modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.login-modal-container {
+  float: none;
+  margin: 0px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.login-tittle {
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+.login-footer {
+  min-height: 40px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.login-bottom {
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  border: 1px solid;
+}
+
+.login-bottom:focus {
+  outline: none;
+}
+
+.home-box {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.home-image {
+  position: relative;
+  margin: auto;
+  width: 88px;
+  height: 88px;
+  border: 8px solid white;
+  line-height: 88px;
+  border-radius: 50%;
+  background: #63B76C;
+}
+
+.home-box:hover > .home-image {
+    background: #054d93; 
+}
+
+.home-icon {
+  font-size: 36px;
+  color: #fff;
+}
+
+.home-option { 
+  margin-top: -24px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid #e0e0e0;
+  padding: 15px 0 10px 0;
+}
+
+.home-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #222;
+}
+
+.client-navbar-padding {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.clientImgProfile {
+  width: 150px;
+  height:150px;
+  margin-top: 5px;
+}
+
+.clientOptions{
+  margin: 10px;
+}
+
+@media (min-width: 992px) {
+  .login-bottom:hover {
+    background: #044a90;
+  }
+}
+
+.centrar{
+  margin-top: 7px; 
+}
+
+.box-principal{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 90px;
+  width: 80%;
+}
+
+.card{
+  margin-top: 4px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,.2);
+}
+
+.list-group-item{
+  padding: 8px;
+}
+
+.card-deck{
+  display: flex;
+  flex-wrap:wrap;
+}
+
+hr.style-line { 
+  height: 30px; 
+  border-style: solid; 
+  border-color: #8c8b8b; 
+  border-width: 1px 0 0 0; 
+  border-radius: 20px; 
+  margin-bottom: 0px
+} 
+
+hr.style-line:before { 
+  display: block; 
+  content: ""; 
+  height: 30px; 
+  margin-top: -31px; 
+  border-style: solid; 
+  border-color: #8c8b8b; 
+  border-width: 0 0 1px 0; 
+  border-radius: 20px; 
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 350px;
+  height: auto;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin: 10;
+  margin-bottom: 60px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+}

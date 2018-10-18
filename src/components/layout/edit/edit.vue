@@ -31,7 +31,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="css">
 @media screen and (max-device-width : 480px) {
   .modal-container{
     width: auto;

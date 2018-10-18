@@ -24,10 +24,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="css">
   .margin {
     margin: 8px;
-  },
+  }
+
   .margin-right {
     margin-right: 10px;
   }

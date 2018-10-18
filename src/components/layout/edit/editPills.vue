@@ -2,12 +2,12 @@
   main
     h1.text-center
       | Editar
-    ul.nav.nav-pills
-      li#pill1(@click='pill1', :class="pillsState[0]")
+    ul.nav.nav-pills.text-center
+      li#pill1(@click='membership', :class="pillsState[0]")
         a Mensualidad
-      li#pill2(@click='pill2', :class="pillsState[1]")
+      li#pill2(@click='user', :class="pillsState[1]")
         a Usuario
-    hr.style-line
+    hr.decorate
 </template>
 
 <script>
@@ -15,34 +15,49 @@
     name: 'EditPills',
     computed: {
       pillsState () {
-        return this.$store.getters.pillsActive.map((state) => state ? 'active' : '')
+        return this.$store.getters.pillsActive.map(state => state ? 'active' : '')
       }
     },
     methods: {
-      async pill1 () {
-        const pill1 = document.getElementById('pill1')
-        if (pill1.classList.value === 'active') { return }
-        // this.$store.commit('isLoading', true)
-        this.$store.commit('clientsList', [])
-        this.$store.commit('pillActive', 'pill1')
-        const clients = await allClients.search()
-        if (clients) {
-          // this.$store.commit('isLoading', false)
-          this.$store.commit('clientsList', clients)
+      async membership () {
+        const isActive = document.getElementById('pill1').classList.value
+        if (isActive) {
+          return
         }
+        this.$store.commit('pillActive', 0)
       },
-      async pill2 () {
-        const pill2 = document.getElementById('pill2')
-        if (pill2.classList.value === 'active') { return }
-        // this.$store.commit('isLoading', true)
-        this.$store.commit('clientsList', [])
-        this.$store.commit('pillActive', 'pill2')
-        const clients = await todayClients.search()
-        if (clients) {
-          // this.$store.commit('isLoading', false)
-          this.$store.commit('clientsList', clients)
+      async user () {
+        const isActive = document.getElementById('pill2').classList.value
+        if (isActive) {
+          return
         }
+        this.$store.commit('pillActive', 1)
       }
     }
 }
 </script>  
+
+<style lang="css" scoped>
+  li {
+    float:none;
+    display:inline-block;
+  }
+  .decorate {
+    overflow: visible;
+    height: 30px;
+    border-style: solid;
+    border-color:	#D0D0D0;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+  }
+  .decorate:before {
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #D0D0D0;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+  }
+</style>

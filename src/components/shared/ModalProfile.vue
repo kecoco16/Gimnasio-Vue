@@ -1,32 +1,32 @@
 <template lang="pug">
   main.col
-    img.img-responsive.img-circle(:src='this.$store.state.clientSelect.ruta_imagen')
+    img.img-responsive.img-circle(:src='this.$store.state.clientSelect.profileImageRoute')
     .text-center
-      h3 {{ this.$store.state.clientSelect.nombre }}
+      h3 {{ this.$store.state.clientSelect.name }}
     .row.padding.list-group-item(title="Cedula")
       i.fa.fa-id-card.fa-lg.col-md-1.col-xs-1.col-sm-1
       p.col-md-10.col-xs-10.col-sm-10
-        | {{ this.$store.state.clientSelect.cedula }}
+        | {{ this.$store.state.clientSelect.idNumber }}
     .row.padding.list-group-item(title="Correo")
       i.fa.fa-envelope-o.fa-lg.col-md-1.col-xs-1.col-sm-1
       p.col-md-10.col-xs-10.col-sm-10
-        | {{ this.$store.state.clientSelect.correo }}
+        | {{ this.$store.state.clientSelect.email }}
     .row.padding.list-group-item(title="Telefono")
       i.fa.fa-phone.fa-lg.col-md-1.col-xs-1.col-sm-1
       p.col-md-10.col-xs-10.col-sm-10
-        | {{ this.$store.state.clientSelect.telefono }}
+        | {{ this.$store.state.clientSelect.phone }}
     .row.padding.list-group-item(title="mensualidad")
       i.fa.fa-money.fa-lg.col-md-1.col-xs-1.col-sm-1
       p.col-md-10.col-xs-10.col-sm-10
-        | {{ this.$store.state.clientSelect.mensualidad }}
+        | {{ this.$store.state.clientSelect['membership.amount'] }}
     .row.padding.list-group-item(title="Fecha de inicio")
       i.fa.fa-calendar.fa-lg.col-md-1.col-xs-1.col-sm-1
       p.col-md-10.col-xs-10.col-sm-10
-        | {{ this.$store.state.clientSelect.fecha_inicio | dateFormat }}
+        | {{ this.$store.state.clientSelect.createdAt }}
     .row.padding.list-group-item.last(title="Fecha de pago")
       i.fa.fa-calendar.fa-lg.col-md-1.col-xs-1.col-sm-1
       p.col-md-10.col-xs-10.col-sm-10
-        | {{ this.$store.state.clientSelect.fecha_pago | dateFormat }}  
+        | {{ this.$store.state.clientSelect.payDay }}  
     button.btn.btn-primary.btn-sm.btn-block(@click='hide') Cerrar
 </template>
 
@@ -40,7 +40,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
   img{
     width: 200px;
     margin: 0 auto;

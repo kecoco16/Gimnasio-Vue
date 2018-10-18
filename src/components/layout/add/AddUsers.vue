@@ -11,21 +11,23 @@
         .form-group
           i.fa.fa-key
           label.control-label &nbsp Contraseña
-          input.form-control(name='contraseña', v-model='pass', v-validate="'required|min:6'", type='password', placeholder='contraseña')
+          input.form-control(name='contraseña', v-model='password', v-validate="'required|min:6'", type='password', placeholder='contraseña')
           i.fa.fa-warning(v-show="errors.has('contraseña')")
           span.text-danger(v-show="errors.has('contraseña')") {{ errors.first('contraseña') }}
         button.btn.btn-primary.btn-block(type='submit', @click='newUser') Agregar
 </template>
 
 <script>
-import addUser from '@/services/addUser'
+import { confirmModal, successModal } from '@/services/createOrUpdateUser'
+import { requestError } from '@/services/errorMessages'
+
 export default {
   name: 'app',
 
   data () {
     return {
       name: '',
-      pass: ''
+      password: ''
     }
   },
   methods: {
@@ -44,19 +46,28 @@ export default {
       }
     },
     async newUser () {
-      if (this.name && this.pass) {
-        const user = await addUser.search(this.name, this.pass)
-        if (user) {
-          swal({
-            title: 'Agregada con exito!',
-            timer: 1200,
-            showConfirmButton: false,
-            type: 'success'
-          })
-          setTimeout(() => {
-            this.$router.push('/home')
-          }, 1200)
+      if (this.name && this.password) {
+        const response = await confirmModal()
+        if (!response) {
+          return
         }
+
+        const payload = {
+          name: this.name,
+          password: this.password,
+          type: 'root'
+        }
+
+        const user = await this.$store.dispatch(
+          'updateOrCreatedUser',
+          payload
+        )
+
+        if (user.message) {
+          return requestError()
+        }
+
+        return successModal()
       }
     }
   }

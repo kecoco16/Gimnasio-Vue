@@ -4,11 +4,11 @@
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  export default {
+    name: 'app'
+  }
 </script>
 
-<style lang="scss">
-  @import './scss/main.scss';
+<style lang="css">
+  @import './styles/main.css';
 </style>
