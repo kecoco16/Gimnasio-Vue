@@ -9,23 +9,15 @@
         strong.item.col-sm-3.col-xs-1.col-md-2 Monto
       .row.sombra(v-for="(p,i) in paginated('list')")
         p.item.col-sm-1.col-xs-1.col-md-1 {{i+1}}
-        a.item.col-sm-5.col-xs-8.col-md-5(@click="searchClient(p.id_clientes)") {{p['client.name']}}
+        a.item.col-sm-5.col-xs-8.col-md-5(@click="searchClient(p.clientId)") {{p['client.name']}}
         p.item.col-sm-3.col-xs-2.col-md-3.hidden-xs {{p.date}}
         p.item.col-sm-3.col-xs-1.col-md-2 {{p.amount}}
       .col-md-4.col-md-offset-8.col-xs-12.col-sm-12
-        paginate-links(for='list',v-if="list.length > 10" :simple="{next: 'Siguiente',prev: 'Anterior'}", :classes="{'ul': 'pager','li': 'col-xs-6'}")  
-    .modal-mask(v-if='Profile')
-      .modal-wrapper.animated.bounceIn
-        .modal-container
-          profile-modal
+        paginate-links(for='list',v-if="list.length > 10" :simple="{next: 'Siguiente',prev: 'Anterior'}", :classes="{'ul': 'pager','li': 'col-xs-6'}")
 </template>
 
 <script>
-import ProfileModal from '@/components/shared/ModalProfile.vue'
-
 export default {
-  components: {ProfileModal},
-
   data () {
     return {
       paginate: ['list']
@@ -35,9 +27,6 @@ export default {
     this.$store.commit('paymentsSelect', [])
   },
   computed: {
-    Profile () {
-      return this.$store.state.profileModal
-    },
     list () {
       this.goToFirstPage()
       return this.$store.state.paymentsList
@@ -45,7 +34,10 @@ export default {
   },
   methods: {
     async searchClient (id) {
-      this.$store.commit('clientSelect', {})
+      await this.$store.dispatch(
+        'getClientById',
+        { id }
+      )
       this.$store.commit('switchPayments')
     },
     goToFirstPage () {

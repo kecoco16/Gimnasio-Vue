@@ -6,6 +6,7 @@ import clients from '@/services/getClients'
 import todayClients from '@/services/getTodayClients'
 import lateClients from '@/services/getLateClients'
 import clientByName from '@/services/getClientByName'
+import clientById from '@/services/getClientById'
 import getTodayPayments from '@/services/getTodayPayments'
 import getAllPayments from '@/services/getAllPayments'
 import getPaymentsByDates from '@/services/getPaymentsByDates'
@@ -154,6 +155,16 @@ const store = new Vuex.Store({
         context.commit('isLoading', false)
         context.commit('setClients', clients)
         return clients
+      } catch (err) {
+        console.log(err)
+        return new Error(err)
+      }
+    },
+    async getClientById (context, payload) {
+      try {
+        const client = await clientById(payload.id)
+        context.commit('clientSelect', client)
+        return client
       } catch (err) {
         console.log(err)
         return new Error(err)

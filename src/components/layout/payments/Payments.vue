@@ -9,6 +9,10 @@
       .modal-wrapper.animated.bounceIn
         .modal-container-date
           gym-filter-modal
+    .modal-mask(v-if='Profile')
+      .modal-wrapper.animated.bounceIn
+        .modal-container
+          profile-modal
     gym-footer
 </template>
 
@@ -19,14 +23,20 @@ import GymFooter from '@/components/shared/Footer.vue'
 import GymHeader from '@/components/shared/Header.vue'
 import GymLoader from '@/components/shared/Loader.vue'
 import GymFilterModal from './PaymentsModalDateFilter.vue'
+import ProfileModal from '@/components/shared/ModalProfile.vue'
 
 export default {
   name: 'payments',
-  components: {GymAddPills, GymPaymentList, GymFooter, GymHeader, GymLoader, GymFilterModal},
+  components: {GymAddPills, GymPaymentList, GymFooter, GymHeader, GymLoader, GymFilterModal, ProfileModal},
   created () {
     this.$store.commit('pillActive', 'disable')
     this.$store.commit('modalState', false)
     this.$store.commit('paymentsSelect', [])
+  },
+  computed: {
+    Profile () {
+      return this.$store.state.profileModal
+    }
   }
 }
 </script>
@@ -64,5 +74,5 @@ export default {
       margin-right: auto;
       width: 70%;
     }
-  } 
+  }
 </style>
