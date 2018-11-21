@@ -35,7 +35,7 @@
       }
     }
 }
-</script>  
+</script>
 
 <style lang="css" scoped>
   li {

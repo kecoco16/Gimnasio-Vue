@@ -1,24 +1,26 @@
 <template lang="pug">
   main
     gym-nav-bar
-    .box-principal
-      .animated.bounceInDown
-        gym-add-pills
+    .box-principal.animated.bounceInDown
+      gym-edit-pills
+      gym-edit-memberships.animated.fadeIn(v-show='this.$store.state.pills[0]')
+      gym-edit-users.animated.fadeIn(v-show='this.$store.state.pills[1]')
       gym-loader(v-show='isLoading')
-      div.row(v-show='!isLoading')
     gym-footer(v-show='!isLoading')
 </template>
 
 <script>
 import GymLoader from '@/components/shared/Loader.vue'
 import GymFooter from '@/components/shared/Footer.vue'
-import GymAddPills from './editPills.vue'
+import GymEditPills from './EditPills.vue'
 import GymNavBar from '@/components/shared/Header.vue'
+import GymEditMemberships from './EditMemberships.vue'
+import GymEditUsers from './EditUsers.vue'
 
 export default {
   name: 'clients',
 
-  components: {GymLoader, GymFooter, GymAddPills, GymNavBar},
+  components: {GymLoader, GymFooter, GymEditPills, GymNavBar, GymEditMemberships, GymEditUsers},
 
   created () {
     this.$store.commit('clientsList', [])

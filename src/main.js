@@ -12,7 +12,7 @@ Validator.localize(veeConfig.lenguaje)
 Vue.use(VeeValidate, veeConfig.config)
 Vue.use(VuePaginate)
 
-new Vue({
+new Vue({ // eslint-disable-line
   el: '#app',
   render: h => h(App),
   router,

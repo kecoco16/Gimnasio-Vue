@@ -6,7 +6,7 @@ import Home from './components/layout/Home.vue'
 import Add from './components/layout/add/Add.vue'
 import Login from './components/layout/login.vue'
 import Payments from './components/layout/payments/Payments.vue'
-import Edit from './components/layout/edit/edit.vue'
+import Edit from './components/layout/edit/Edit.vue'
 
 const routes = [
   {
