@@ -1,6 +1,7 @@
 // Constants values for services.
 export const constants = {
-  baseUrl: process.env.API_URL || 'http://localhost:3000/api'
+  baseUrl: process.env.API_URL || 'http://localhost:3000/api',
+  baseUploadsURL: process.env.API_UPLOADS_URL || 'http://localhost:3000/'
 }
 
 // Get auth headers

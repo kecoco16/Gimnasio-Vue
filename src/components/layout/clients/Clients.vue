@@ -6,7 +6,7 @@
         gym-add-pills
       gym-loader(v-show='isLoading')
       div.row(v-show='!isLoading')
-        small.text-left.col-xs-6.col-sm-6.col-md-6 {{total}} 
+        small.text-left.col-xs-6.col-sm-6.col-md-6 {{total}}
         a.text-right.col-xs-6.col-sm-6.col-md-6(title='Generar PDF')
           i.fa.fa-file-pdf-o
       gym-client-card

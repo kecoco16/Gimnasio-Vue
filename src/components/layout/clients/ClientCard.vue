@@ -4,15 +4,15 @@
       .card-block
         img.clientImgProfile.card-img-top.img-circle.center-block(
           @click='profileModal(c)',
-          :src="'src/img/'+c.profileImageRoute"
+          :src='baseUrl+c.profileImageRoute'
         )
         h3.text-center
           | {{c.name}}
         .list-group-item
-          strong.text-success Fecha de pago: 
+          strong.text-success Fecha de pago:
           | {{c.payDay}}
         .list-group-item
-          strong.text-success Mensualidad: 
+          strong.text-success Mensualidad:
           | {{c['membership.amount']}}
         .clientOptions.text-center
           a(title='Realizar pago', @click='payment(c)')
@@ -20,19 +20,23 @@
           a(title='Editar', @click='editClient(c)')
             i.fa.fa-pencil.fa-2x(style='padding-left:10px;')
           a(title='Eliminar', @click='deleteClient(c)')
-            i.fa.fa-trash.fa-2x(style='padding-left:10px;')    
+            i.fa.fa-trash.fa-2x(style='padding-left:10px;')
 </template>
 
 <script>
   import { confirmModal, successModal } from '@/services/clientPayment'
   import { confirm, success } from '@/services/deleteClient'
   import { requestError } from '@/services/errorMessages'
+  import { constants } from '../../../services/config'
 
   export default {
     name: 'ClientCard',
     computed: {
       clients () {
         return this.$store.state.clientsList
+      },
+      baseUrl () {
+        return constants.baseUploadsURL
       }
     },
     methods: {

@@ -1,6 +1,6 @@
 <template lang="pug">
   main.col
-    img.img-responsive.img-circle(:src='this.$store.state.clientSelect.profileImageRoute')
+    img.img-responsive.img-circle(:src='baseUrl+this.$store.state.clientSelect.profileImageRoute')
     .text-center
       h3 {{ this.$store.state.clientSelect.name }}
     .row.padding.list-group-item(title="Cedula")
@@ -31,10 +31,17 @@
 </template>
 
 <script>
+import { constants } from '../../services/config'
+
 export default {
   methods: {
     hide () {
       this.$store.commit('switchProfile')
+    }
+  },
+  computed: {
+    baseUrl () {
+      return constants.baseUploadsURL
     }
   }
 }

@@ -65,7 +65,7 @@ export default {
 .row.sombra:nth-child(2n+1){
   background:#FAFAFA;
 }
-.row.sombra:hover { 
+.row.sombra:hover {
   background:#f5f5f5;
 }
 
